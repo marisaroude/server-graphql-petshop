@@ -3,10 +3,6 @@ require('dotenv').config()
 
 const { PG_NAME_DB, PG_ROLE_DB, PG_PASSWORD_DB, PG_HOST } = process.env
 
-console.log('PG_NAME_DB:', PG_NAME_DB)
-console.log('PG_ROLE_DB:', PG_ROLE_DB)
-console.log('PG_PASSWORD_DB:', PG_PASSWORD_DB)
-console.log('PG_HOST:', PG_HOST)
 const sequelize = new Sequelize(PG_NAME_DB, PG_ROLE_DB, PG_PASSWORD_DB, {
   host: PG_HOST,
   dialect: 'postgres',
