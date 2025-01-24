@@ -23,8 +23,19 @@ const typeDefs = `#graphql
     fecha_baja: String
     }
 
+     type Mascota {
+    id_mascota: Int!
+    id_persona: Int!
+    nombre: String!
+    tipo: String!
+    raza: String
+    descripcion: String
+    fecha_baja: String
+    }
+
     type Query {
     personas: [Persona]
+    mascotas: [Mascota]
     }
 
     type Mutation {
