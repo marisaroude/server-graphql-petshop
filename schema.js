@@ -33,9 +33,64 @@ const typeDefs = `#graphql
     fecha_baja: String
     }
 
+    type Proveedor {
+    id_proveedor: Int!
+    nombre: String!
+    cuit: String!
+    activo: Boolean!
+    }
+
+    type ProductoServicio {
+    id_ps: Int!
+    nombre: String!
+    precio: Int!
+    stock: Int!
+    descripcion: String
+    categoria: String!
+    activo: Boolean!
+    }
+
+    type IngresoProducto {
+    id_ip: Int!
+    id_proveedor: Int!
+    subtotal: Int!
+    cantidad: Int!
+    id_ps: Int!
+    }
+
+    type Promocion {
+    id_promocion: Int!
+    valor: Float!
+    fecha_inicio: String!
+    fecha_fin: String!
+    activo: Boolean!
+    id_ps: Int
+    }
+
+    type Carrito {
+    id_carrito: Int!
+    fecha: String!
+    total: Float!
+    id_persona: Int!
+    }
+
+    type ProductoCarrito {
+    id_pc: Int!
+    cantidad: Int!
+    subtotal: Float!
+    id_ps: Int!
+    id_carrito: Int!
+    }
+
     type Query {
     personas: [Persona]
     mascotas: [Mascota]
+    proveedores: [Proveedor]
+    productosServicios: [ProductoServicio]
+    ingresosProductos: [IngresoProducto]
+    promociones: [Promocion]
+    carritos: [Carrito]
+    productosCarritos: [ProductoCarrito]
     }
 
     type Mutation {
