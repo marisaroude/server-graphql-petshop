@@ -78,7 +78,7 @@ const typeDefs = `#graphql
   }
 
   type Pregunta {
-    id_pregunta: Int!
+    id_preguntas: Int!
     descripcion: String!
     estado: Boolean!
     id_persona: Int!
@@ -88,7 +88,7 @@ const typeDefs = `#graphql
   type Respuesta {
     id_respuesta: Int!
     descripcion: String!
-    id_pregunta: Int!
+    id_preguntas: Int!
   }
 
   type Pago {
@@ -140,7 +140,16 @@ const typeDefs = `#graphql
       tipo: Boolean!,
       fecha_baja: String
     ): Persona
+
+    createMascota(
+      id_persona: Int!,
+      nombre: String!,
+      tipo: String!,
+      raza: String,
+      descripcion: String,
+      fecha_baja: String,
+    ): Mascota
   }
-`;
+`
 
 module.exports = { typeDefs }

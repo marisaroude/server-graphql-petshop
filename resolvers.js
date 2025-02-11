@@ -16,9 +16,6 @@ const {
   DetalleFactura,
 } = require('./models')
 
-
-
-  
 // This resolver retrieves books from the "books" array above.
 const resolvers = {
   Query: {
@@ -38,7 +35,32 @@ const resolvers = {
     respuestas: async () => await Respuesta.findAll(),
   },
   Mutation: {
-    // we need complete with the queries
+    createPersona: async (
+      _,
+      { dni, nombre, apellido, telefono, correo_electronico, domicilio, tipo },
+    ) =>
+      await Persona.create({
+        dni,
+        nombre,
+        apellido,
+        telefono,
+        correo_electronico,
+        domicilio,
+        tipo,
+      }),
+
+    createMascota: async (
+      _,
+      { id_persona, nombre, tipo, raza, descripcion, fecha_baja },
+    ) =>
+      await Mascota.create({
+        id_persona,
+        nombre,
+        tipo,
+        raza,
+        descripcion,
+        fecha_baja,
+      }),
   },
 }
 
