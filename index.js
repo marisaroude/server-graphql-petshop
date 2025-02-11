@@ -27,6 +27,7 @@ async function startServer() {
   // Specify the path where we'd like to mount our server
   app.listen(4000, () => {
     console.log(`Server is live on port 4000`)
+    console.log(`prueba`)
   })
 
   sequelize
