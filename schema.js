@@ -1,29 +1,24 @@
-// A schema is a collection of type definitions (hence "typeDefs")
-// that together define the "shape" of queries that are executed against
-// your data.
 const typeDefs = `#graphql
   # Comments in GraphQL strings (such as this one) start with the hash (#) symbol.
-
 
   # The "Query" type is special: it lists all of the available queries that
   # clients can execute, along with the return type for each. 
 
   #We need create a types for Query, Fields, Mutation.
 
-
-    type Persona {
+  type Persona {
     id_persona: Int!
     dni: String!
     nombre: String!
     apellido: String!
     telefono: String!
     correo_electronico: String!
-    domicilio:String!
-    tipo:Boolean!
+    domicilio: String!
+    tipo: Boolean!
     fecha_baja: String
-    }
+  }
 
-     type Mascota {
+  type Mascota {
     id_mascota: Int!
     id_persona: Int!
     nombre: String!
@@ -31,16 +26,16 @@ const typeDefs = `#graphql
     raza: String
     descripcion: String
     fecha_baja: String
-    }
+  }
 
-    type Proveedor {
+  type Proveedor {
     id_proveedor: Int!
     nombre: String!
     cuit: String!
     activo: Boolean!
-    }
+  }
 
-    type ProductoServicio {
+  type ProductoServicio {
     id_ps: Int!
     nombre: String!
     precio: Int!
@@ -48,41 +43,77 @@ const typeDefs = `#graphql
     descripcion: String
     categoria: String!
     activo: Boolean!
-    }
+  }
 
-    type IngresoProducto {
+  type IngresoProducto {
     id_ip: Int!
     id_proveedor: Int!
     subtotal: Int!
     cantidad: Int!
     id_ps: Int!
-    }
+  }
 
-    type Promocion {
+  type Promocion {
     id_promocion: Int!
     valor: Float!
     fecha_inicio: String!
     fecha_fin: String!
     activo: Boolean!
     id_ps: Int
-    }
+  }
 
-    type Carrito {
+  type Carrito {
     id_carrito: Int!
     fecha: String!
     total: Float!
     id_persona: Int!
-    }
+  }
 
-    type ProductoCarrito {
+  type ProductoCarrito {
     id_pc: Int!
     cantidad: Int!
     subtotal: Float!
     id_ps: Int!
     id_carrito: Int!
-    }
+  }
 
-    type Query {
+  type Pregunta {
+    id_pregunta: Int!
+    descripcion: String!
+    estado: Boolean!
+    id_persona: Int!
+    id_ps: Int!
+  }
+
+  type Respuesta {
+    id_respuesta: Int!
+    descripcion: String!
+    id_pregunta: Int!
+  }
+
+  type Pago {
+    id_pago: Int!
+    id_carrito: Int!
+    fecha: String!
+    monto: Float!
+  }
+
+  type Factura {
+    id_factura: Int!
+    id_pago: Int!
+    fecha: String!
+    total: Float!
+  }
+
+  type DetalleFactura {
+    id_df: Int!
+    cantidad: Int!
+    precio: String!
+    id_ps: Float!
+    id_factura: Int!
+  }
+
+  type Query {
     personas: [Persona]
     mascotas: [Mascota]
     proveedores: [Proveedor]
@@ -91,20 +122,25 @@ const typeDefs = `#graphql
     promociones: [Promocion]
     carritos: [Carrito]
     productosCarritos: [ProductoCarrito]
-    }
+    preguntas: [Pregunta]
+    respuestas: [Respuesta] 
+    pagos: [Pago] 
+    facturas: [Factura] 
+    detallefacturas: [DetalleFactura] 
+  }
 
-    type Mutation {
-    createPersona(dni: String!,
-    nombre: String!,
-    apellido: String!,
-    telefono: String!,
-    correo_electronico: String!,
-    domicilio:String!,
-    tipo:Boolean!,
-    fecha_baja: String) : Persona
-    }
-
-  
-`
+  type Mutation {
+    createPersona(
+      dni: String!,
+      nombre: String!,
+      apellido: String!,
+      telefono: String!,
+      correo_electronico: String!,
+      domicilio: String!,
+      tipo: Boolean!,
+      fecha_baja: String
+    ): Persona
+  }
+`;
 
 module.exports = { typeDefs }
