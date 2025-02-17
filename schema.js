@@ -127,6 +127,7 @@ const typeDefs = `#graphql
     pagos: [Pago] 
     facturas: [Factura] 
     detallefacturas: [DetalleFactura] 
+    mascotasByPersona(idPersona: Int!): [Mascota]
   }
 
   type Mutation {
@@ -149,6 +150,27 @@ const typeDefs = `#graphql
       descripcion: String,
       fecha_baja: String,
     ): Mascota
+
+    createPago(
+      id_carrito: Int!,
+      fecha: String!,
+      monto: Float!,
+
+    ): Pago
+
+    createCarrito(
+      id_persona: Int!,
+      fecha: String!,
+      total: Float!,
+    ): Carrito
+
+    createProductoCarrito(
+      cantidad: Int!
+      subtotal: Float!
+      id_ps: Int!
+      id_carrito: Int!
+    ): ProductoCarrito
+
   }
 `
 
