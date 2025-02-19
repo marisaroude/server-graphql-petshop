@@ -149,7 +149,30 @@ const typeDefs = `#graphql
       descripcion: String,
       fecha_baja: String,
     ): Mascota
+
+    createIngresoProducto(
+      id_proveedor:Int!
+      subtotal:Float!
+      cantidad:Int!
+      id_ps:Int!
+    ): IngresoProducto
+
+    createProductoServicio(
+      nombre:String!,
+      precio:Float!,
+      stock:Int!,
+      descripcion:String,
+      categoria: String,
+      activo:Boolean!,
+    ): ProductoServicio
+
+    createProveedor(
+      nombre:String!,
+      cuit:String!,
+      activo:Boolean!,
+    ): Proveedor
+
   }
-`
+` 
 
 module.exports = { typeDefs }
