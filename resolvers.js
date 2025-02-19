@@ -86,8 +86,7 @@ const resolvers = {
 
     createProductoCarrito: async (
       _,
-      { cantidad, subtotal, id_ps, id_carrito },
-    ) =>
+      { cantidad, subtotal, id_ps, id_carrito }) =>
       await Mascota.create({
         cantidad,
         subtotal,
