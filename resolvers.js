@@ -86,12 +86,44 @@ const resolvers = {
 
     createProductoCarrito: async (
       _,
-      { cantidad, subtotal, id_ps, id_carrito }) =>
+      { cantidad, subtotal, id_ps, id_carrito },
+    ) =>
       await Mascota.create({
         cantidad,
         subtotal,
         id_ps,
         id_carrito,
+      }),
+
+    createIngresoProducto: async (
+      _,
+      { id_proveedor, subtotal, cantidad, id_ps },
+    ) =>
+      await IngresoProducto.create({
+        id_proveedor,
+        subtotal,
+        cantidad,
+        id_ps,
+      }),
+
+    createProductoServicio: async (
+      _,
+      { nombre, precio, stock, descripcion, categoria, activo },
+    ) =>
+      await IngresoProducto.create({
+        nombre,
+        precio,
+        stock,
+        descripcion,
+        categoria,
+        activo,
+      }),
+
+    createProveedor: async (_, { nombre, cuit, activo }) =>
+      await Proveedor.create({
+        nombre,
+        cuit,
+        activo,
       }),
   },
 }

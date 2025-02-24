@@ -165,11 +165,33 @@ const typeDefs = `#graphql
     ): Carrito
 
     createProductoCarrito(
-      cantidad: Int!
-      subtotal: Float!
-      id_ps: Int!
-      id_carrito: Int!
+      cantidad: Int!,
+      subtotal: Float!,
+      id_ps: Int!,
+      id_carrito: Int!,
     ): ProductoCarrito
+
+    createIngresoProducto(
+      id_proveedor:Int!,
+      subtotal:Float!,
+      cantidad:Int!,
+      id_ps:Int!,
+    ): IngresoProducto
+
+    createProductoServicio(
+      nombre:String!,
+      precio:Float!,
+      stock:Int!,
+      descripcion:String,
+      categoria: String,
+      activo:Boolean!,
+    ): ProductoServicio
+
+    createProveedor(
+      nombre:String!,
+      cuit:String!,
+      activo:Boolean!,
+    ): Proveedor
 
   }
 `
