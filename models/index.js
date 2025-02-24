@@ -77,7 +77,11 @@ Respuesta.belongsTo(Pregunta, { foreignKey: 'id_preguntas', as: 'pregunta' })
 // Sincronizar base de datos (sin forzar recreación de tablas)
 sequelize
   .sync({ force: false })
-  .then(() => console.log('Base de datos sincronizada correctamente'))
+  .then(() =>
+    console.log(
+      'Base de datos sincronizada correctamente: http://localhost:4000/graphql',
+    ),
+  )
   .catch(err => console.error('Error al sincronizar la base de datos:', err))
 
 module.exports = {

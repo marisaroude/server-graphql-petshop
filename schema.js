@@ -127,6 +127,7 @@ const typeDefs = `#graphql
     pagos: [Pago] 
     facturas: [Factura] 
     detallefacturas: [DetalleFactura] 
+    mascotasByPersona(idPersona: Int!): [Mascota]
   }
 
   type Mutation {
@@ -150,11 +151,31 @@ const typeDefs = `#graphql
       fecha_baja: String,
     ): Mascota
 
+    createPago(
+      id_carrito: Int!,
+      fecha: String!,
+      monto: Float!,
+
+    ): Pago
+
+    createCarrito(
+      id_persona: Int!,
+      fecha: String!,
+      total: Float!,
+    ): Carrito
+
+    createProductoCarrito(
+      cantidad: Int!,
+      subtotal: Float!,
+      id_ps: Int!,
+      id_carrito: Int!,
+    ): ProductoCarrito
+
     createIngresoProducto(
-      id_proveedor:Int!
-      subtotal:Float!
-      cantidad:Int!
-      id_ps:Int!
+      id_proveedor:Int!,
+      subtotal:Float!,
+      cantidad:Int!,
+      id_ps:Int!,
     ): IngresoProducto
 
     createProductoServicio(
@@ -173,6 +194,6 @@ const typeDefs = `#graphql
     ): Proveedor
 
   }
-` 
+`
 
 module.exports = { typeDefs }
