@@ -61,6 +61,40 @@ const resolvers = {
         descripcion,
         fecha_baja,
       }),
+
+      createPregunta: async (
+        _,
+        { idPreguntas, descripcion, estado, id_persona, id_ps },
+      ) =>
+        await Pregunta.create({
+          idPreguntas,
+          descripcion,
+          estado,
+          id_persona,
+          id_ps,
+        }),
+
+      createRespuesta: async (
+        _,
+        { id_respuesta, descripcion, id_preguntas },
+      ) =>
+        await Respuesta.create({
+          id_respuesta,
+          descripcion,
+          id_preguntas,
+        }),
+
+        createPromocion: async (
+          _,
+          { id_promocion, porcentaje, fecha_inicio, fecha_fin, id_ps },
+        ) =>
+          await Promocion.create({
+            id_promocion,
+            porcentaje,
+            fecha_inicio,
+            fecha_fin,
+            id_ps,
+          }),
   },
 }
 
