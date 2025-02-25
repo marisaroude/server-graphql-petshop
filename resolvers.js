@@ -33,6 +33,13 @@ const resolvers = {
     pagos: async () => await Pago.findAll(),
     preguntas: async () => await Pregunta.findAll(),
     respuestas: async () => await Respuesta.findAll(),
+    mascotasByPersona: async (_, { idPersona }) => {
+      const persona = await Persona.findByPk(idPersona)
+      if (!persona) {
+        throw new Error(`Persona with id ${idPersona} not found`)
+      }
+      return await persona.getMascotas()
+    },
   },
   Mutation: {
     createPersona: async (
@@ -95,6 +102,62 @@ const resolvers = {
             fecha_fin,
             id_ps,
           }),
+    createPago: async (_, { id_carrito, fecha, monto }) =>
+      await Mascota.create({
+        id_carrito,
+        fecha,
+        monto,
+      }),
+
+    createCarrito: async (_, { id_persona, fecha, monto, total }) =>
+      await Mascota.create({
+        id_persona,
+        fecha,
+        monto,
+        total,
+      }),
+
+    createProductoCarrito: async (
+      _,
+      { cantidad, subtotal, id_ps, id_carrito },
+    ) =>
+      await Mascota.create({
+        cantidad,
+        subtotal,
+        id_ps,
+        id_carrito,
+      }),
+
+    createIngresoProducto: async (
+      _,
+      { id_proveedor, subtotal, cantidad, id_ps },
+    ) =>
+      await IngresoProducto.create({
+        id_proveedor,
+        subtotal,
+        cantidad,
+        id_ps,
+      }),
+
+    createProductoServicio: async (
+      _,
+      { nombre, precio, stock, descripcion, categoria, activo },
+    ) =>
+      await IngresoProducto.create({
+        nombre,
+        precio,
+        stock,
+        descripcion,
+        categoria,
+        activo,
+      }),
+
+    createProveedor: async (_, { nombre, cuit, activo }) =>
+      await Proveedor.create({
+        nombre,
+        cuit,
+        activo,
+      }),
   },
 }
 
