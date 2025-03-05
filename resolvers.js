@@ -1,4 +1,5 @@
 // Resolvers define how to fetch the types defined in your schema.
+const { omitBy, isUndefined } = require('lodash') // Para limpiar valores undefined
 
 const {
   Persona,
@@ -69,48 +70,45 @@ const resolvers = {
         fecha_baja,
       }),
 
-      createPregunta: async (
-        _,
-        { idPreguntas, descripcion, estado, id_persona, id_ps },
-      ) =>
-        await Pregunta.create({
-          idPreguntas,
-          descripcion,
-          estado,
-          id_persona,
-          id_ps,
-        }),
+    createPregunta: async (
+      _,
+      { idPreguntas, descripcion, estado, id_persona, id_ps },
+    ) =>
+      await Pregunta.create({
+        idPreguntas,
+        descripcion,
+        estado,
+        id_persona,
+        id_ps,
+      }),
 
-      createRespuesta: async (
-        _,
-        { id_respuesta, descripcion, id_preguntas },
-      ) =>
-        await Respuesta.create({
-          id_respuesta,
-          descripcion,
-          id_preguntas,
-        }),
+    createRespuesta: async (_, { id_respuesta, descripcion, id_preguntas }) =>
+      await Respuesta.create({
+        id_respuesta,
+        descripcion,
+        id_preguntas,
+      }),
 
-        createPromocion: async (
-          _,
-          { id_promocion, porcentaje, fecha_inicio, fecha_fin, id_ps },
-        ) =>
-          await Promocion.create({
-            id_promocion,
-            porcentaje,
-            fecha_inicio,
-            fecha_fin,
-            id_ps,
-          }),
+    createPromocion: async (
+      _,
+      { id_promocion, porcentaje, fecha_inicio, fecha_fin, id_ps },
+    ) =>
+      await Promocion.create({
+        id_promocion,
+        porcentaje,
+        fecha_inicio,
+        fecha_fin,
+        id_ps,
+      }),
     createPago: async (_, { id_carrito, fecha, monto }) =>
-      await Mascota.create({
+      await Pago.create({
         id_carrito,
         fecha,
         monto,
       }),
 
     createCarrito: async (_, { id_persona, fecha, monto, total }) =>
-      await Mascota.create({
+      await Carrito.create({
         id_persona,
         fecha,
         monto,
@@ -121,7 +119,7 @@ const resolvers = {
       _,
       { cantidad, subtotal, id_ps, id_carrito },
     ) =>
-      await Mascota.create({
+      await ProductoCarrito.create({
         cantidad,
         subtotal,
         id_ps,
@@ -158,6 +156,48 @@ const resolvers = {
         cuit,
         activo,
       }),
+    deleteProductosCarrito: async (_, { id_pc }) => {
+      const product = await ProductoCarrito.findByPk(id_pc)
+
+      if (!product) {
+        throw new Error('Product not found')
+      }
+
+      await ProductoCarrito.destroy({
+        where: { id_pc: id_pc },
+      })
+
+      return product
+    },
+    cancelProductoServicios: async (_, { id_ps }) => {
+      const product = await ProductoServicio.findByPk(id_ps)
+
+      if (!product) {
+        throw new Error('Product not found')
+      }
+
+      await ProductoServicio.update(
+        { activo: true },
+        { where: { id_ps: id_ps } },
+      )
+
+      return { ...product.toJSON(), activo: false }
+    },
+    updatePersona: async (_, { id_persona, input }) => {
+      const persona = await Persona.findByPk(id_persona)
+      if (!persona) {
+        throw new Error('Person not found')
+      }
+      //
+      // Filtrar valores undefined para evitar sobrescribir con null
+      const dataToUpdate = omitBy(input, isUndefined)
+
+      await Persona.update(dataToUpdate, {
+        where: { id_persona },
+      })
+
+      return { ...persona.toJSON(), ...dataToUpdate }
+    },
   },
 }
 

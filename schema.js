@@ -4,8 +4,17 @@ const typeDefs = `#graphql
   # The "Query" type is special: it lists all of the available queries that
   # clients can execute, along with the return type for each. 
 
-  #We need create a types for Query, Fields, Mutation.
-
+  input UpdatePersonaInput {
+    dni: String
+    nombre: String
+    apellido: String
+    telefono: String
+    correo_electronico: String
+    domicilio: String
+    tipo: Boolean
+    fecha_baja: String
+    }
+#We need create a types for Query, Fields, Mutation.
   type Persona {
     id_persona: Int!
     dni: String!
@@ -214,6 +223,19 @@ const typeDefs = `#graphql
       cuit:String!,
       activo:Boolean!,
     ): Proveedor
+
+    deleteProductosCarrito(
+      id_pc: Int!
+    ): ProductoCarrito
+
+    cancelProductoServicios(
+      id_ps: Int!
+    ): ProductoServicio
+
+    updatePersona(
+    id_persona: Int!, 
+    input: UpdatePersonaInput!
+    ): Persona
 
   }
 `
