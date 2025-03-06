@@ -40,7 +40,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       fecha_baja: {
         type: DataTypes.DATE,
-        defaultValue: null,
+        defaultValue: null, 
       },
     },
     {

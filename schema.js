@@ -130,7 +130,8 @@ const typeDefs = `#graphql
     mascotasByPersona(idPersona: Int!): [Mascota]
   }
 
-  type Mutation {
+  type Mutation 
+  {
     createPersona(
       dni: String!,
       nombre: String!,
@@ -141,6 +142,8 @@ const typeDefs = `#graphql
       tipo: Boolean!,
       fecha_baja: String
     ): Persona
+
+    
 
     createMascota(
       id_persona: Int!,
@@ -215,7 +218,14 @@ const typeDefs = `#graphql
       activo:Boolean!,
     ): Proveedor
 
+
+    cancelPersona(id_persona: Int!): Persona
+    cancelMascota(id_mascota: Int!): Mascota
+    cancelPromocion(id_promocion: Int!): Promocion
+
   }
-`
+
+
+` 
 
 module.exports = { typeDefs }
