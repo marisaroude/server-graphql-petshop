@@ -290,7 +290,7 @@ const resolvers = {
         where: { id_ps},
       })
 
-      return { ...ProductoServicio.toJSON(), ...dataToUpdate }
+      return { ...productoServicio.toJSON(), ...dataToUpdate }
     },
   },
 };
