@@ -177,7 +177,7 @@ const resolvers = {
       }
 
       await ProductoServicio.update(
-        { activo: true },
+        { activo: false },
         { where: { id_ps: id_ps } },
       )
 
