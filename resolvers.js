@@ -1,3 +1,8 @@
+
+// Resolvers define how to fetch the types defined in your schema.
+const { omitBy, isUndefined } = require('lodash') // Para limpiar valores undefined
+
+
 const {
   Persona,
   Mascota,
@@ -114,7 +119,6 @@ const resolvers = {
     createRespuesta: async (_, { id_respuesta, descripcion, id_preguntas }) =>
       await Respuesta.create({
         id_respuesta,
-        descripcion,
         id_preguntas,
       }),
 
@@ -198,6 +202,48 @@ const resolvers = {
         cuit,
         activo,
       }),
+    deleteProductosCarrito: async (_, { id_pc }) => {
+      const product = await ProductoCarrito.findByPk(id_pc)
+
+      if (!product) {
+        throw new Error('Product not found')
+      }
+
+      await ProductoCarrito.destroy({
+        where: { id_pc: id_pc },
+      })
+
+      return product
+    },
+    cancelProductoServicios: async (_, { id_ps }) => {
+      const product = await ProductoServicio.findByPk(id_ps)
+
+      if (!product) {
+        throw new Error('Product not found')
+      }
+
+      await ProductoServicio.update(
+        { activo: false },
+        { where: { id_ps: id_ps } },
+      )
+
+      return { ...product.toJSON(), activo: false }
+    },
+    updatePersona: async (_, { id_persona, input }) => {
+      const persona = await Persona.findByPk(id_persona)
+      if (!persona) {
+        throw new Error('Person not found')
+      }
+      //
+      // Filtrar valores undefined para evitar sobrescribir con null
+      const dataToUpdate = omitBy(input, isUndefined)
+
+      await Persona.update(dataToUpdate, {
+        where: { id_persona },
+      })
+
+      return { ...persona.toJSON(), ...dataToUpdate }
+    },
   },
 };
 
