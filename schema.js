@@ -5,9 +5,7 @@ const typeDefs = `#graphql
   # clients can execute, along with the return type for each. 
 
   input UpdatePersonaInput {
-    dni: String
     nombre: String
-    apellido: String
     telefono: String
     correo_electronico: String
     domicilio: String
