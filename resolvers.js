@@ -1,5 +1,7 @@
+
 // Resolvers define how to fetch the types defined in your schema.
 const { omitBy, isUndefined } = require('lodash') // Para limpiar valores undefined
+
 
 const {
   Persona,
@@ -15,12 +17,10 @@ const {
   Pago,
   Factura,
   DetalleFactura,
-} = require('./models')
+} = require('./models');
 
-// This resolver retrieves books from the "books" array above.
 const resolvers = {
   Query: {
-    // we need complete with the queries
     personas: async () => await Persona.findAll(),
     mascotas: async () => await Mascota.findAll(),
     proveedores: async () => await Proveedor.findAll(),
@@ -35,11 +35,11 @@ const resolvers = {
     preguntas: async () => await Pregunta.findAll(),
     respuestas: async () => await Respuesta.findAll(),
     mascotasByPersona: async (_, { idPersona }) => {
-      const persona = await Persona.findByPk(idPersona)
+      const persona = await Persona.findByPk(idPersona);
       if (!persona) {
-        throw new Error(`Persona with id ${idPersona} not found`)
+        throw new Error(`Persona with id ${idPersona} not found`);
       }
-      return await persona.getMascotas()
+      return await persona.getMascotas();
     },
   },
   Mutation: {
@@ -57,6 +57,23 @@ const resolvers = {
         tipo,
       }),
 
+    cancelPersona: async (_, { id_persona }) => {
+        // Busca la persona por su clave primaria (id_persona)
+      const persona = await Persona.findByPk(id_persona);
+      if (!persona) {
+        throw new Error('Persona no encontrada');
+      }
+      persona.fecha_baja = new Date(); // pone la fecha actual
+      await persona.save();
+
+      // Fcambia el formato de la fecha antes de devolverla
+      const fechaBajaFormateada = persona.fecha_baja.toISOString();
+      return {
+              ...persona.toJSON(),  // Devuelve todos los campos de la persona
+              fecha_baja: fechaBajaFormateada // Sobrescribe la fehca baja con un formato corrercto
+            }
+    },
+
     createMascota: async (
       _,
       { id_persona, nombre, tipo, raza, descripcion, fecha_baja },
@@ -69,6 +86,23 @@ const resolvers = {
         descripcion,
         fecha_baja,
       }),
+
+      cancelMascota: async (_, { id_mascota }) => {
+        // Busca la persona por su clave primaria (id_persona)
+      const mascota = await Mascota.findByPk(id_mascota);
+      if (!mascota) {
+        throw new Error('mascota no encontrada');
+      }
+      mascota.fecha_baja = new Date(); // pone la fecha actual
+      await mascota.save();
+
+      // Fcambia el formato de la fecha antes de devolverla
+      const fechaBajaFormateada = mascota.fecha_baja.toISOString();
+      return {
+              ...mascota.toJSON(),  // Devuelve todos los campos de la mascota
+              fecha_baja: fechaBajaFormateada // Sobrescribe la fehca baja con un formato corrercto
+            }
+    },
 
     createPregunta: async (
       _,
@@ -85,7 +119,6 @@ const resolvers = {
     createRespuesta: async (_, { id_respuesta, descripcion, id_preguntas }) =>
       await Respuesta.create({
         id_respuesta,
-        descripcion,
         id_preguntas,
       }),
 
@@ -100,6 +133,20 @@ const resolvers = {
         fecha_fin,
         id_ps,
       }),
+
+     cancelPromocion: async (_, { id_promocion }) => {
+        const promocion = await Promocion.findByPk(id_promocion);
+        if (!promocion) {
+          throw new Error('promocion no encontrada');
+        }
+  
+        // Marca la promoción como inactiva
+        promocion.activo = false;
+        await promocion.save();
+  
+        return promocion; 
+      },
+
     createPago: async (_, { id_carrito, fecha, monto }) =>
       await Pago.create({
         id_carrito,
@@ -107,11 +154,10 @@ const resolvers = {
         monto,
       }),
 
-    createCarrito: async (_, { id_persona, fecha, monto, total }) =>
+    createCarrito: async (_, { id_persona, fecha, total }) =>
       await Carrito.create({
         id_persona,
         fecha,
-        monto,
         total,
       }),
 
@@ -141,7 +187,7 @@ const resolvers = {
       _,
       { nombre, precio, stock, descripcion, categoria, activo },
     ) =>
-      await IngresoProducto.create({
+      await ProductoServicio.create({
         nombre,
         precio,
         stock,
@@ -199,6 +245,6 @@ const resolvers = {
       return { ...persona.toJSON(), ...dataToUpdate }
     },
   },
-}
+};
 
-module.exports = { resolvers }
+module.exports = { resolvers };
