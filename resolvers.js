@@ -244,6 +244,54 @@ const resolvers = {
 
       return { ...persona.toJSON(), ...dataToUpdate }
     },
+
+    updateMascota: async (_, { id_mascota, input }) => {
+      const mascota = await Mascota.findByPk(id_mascota)
+      if (!mascota) {
+        throw new Error('Pet not found')
+      }
+      //
+      // Filtrar valores undefined para evitar sobrescribir con null
+      const dataToUpdate = omitBy(input, isUndefined)
+
+      await Mascota.update(dataToUpdate, {
+        where: { id_mascota},
+      })
+
+      return { ...mascota.toJSON(), ...dataToUpdate }
+    },
+
+    updatePromocion: async (_, { id_promocion, input }) => {
+      const promocion = await Promocion.findByPk(id_promocion)
+      if (!promocion) {
+        throw new Error('Promotion not found')
+      }
+      //
+      // Filtrar valores undefined para evitar sobrescribir con null
+      const dataToUpdate = omitBy(input, isUndefined)
+
+      await Promocion.update(dataToUpdate, {
+        where: { id_promocion},
+      })
+
+      return { ...promocion.toJSON(), ...dataToUpdate }
+    },
+
+    updateProductoServicio: async (_, { id_ps, input }) => {
+      const productoServicio = await ProductoServicio.findByPk(id_ps)
+      if (!productoServicio) {
+        throw new Error('Pet not found')
+      }
+      //
+      // Filtrar valores undefined para evitar sobrescribir con null
+      const dataToUpdate = omitBy(input, isUndefined)
+
+      await ProductoServicio.update(dataToUpdate, {
+        where: { id_ps},
+      })
+
+      return { ...ProductoServicio.toJSON(), ...dataToUpdate }
+    },
   },
 };
 
