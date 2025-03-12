@@ -4,7 +4,7 @@ const cors = require('cors')
 const { expressMiddleware } = require('@apollo/server/express4')
 const { sequelize } = require('./models')
 const { typeDefs } = require('./schema')
-const { resolvers } = require('./resolvers')
+const { resolvers } = require('./resolvers/index')
 require('dotenv').config()
 
 const server = new ApolloServer({
