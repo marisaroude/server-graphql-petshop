@@ -19,16 +19,12 @@ const oldResolvers = {
   Query: {
     mascotas: async () => await Mascota.findAll(),
     proveedores: async () => await Proveedor.findAll(),
-    productosServicios: async () => await ProductoServicio.findAll(),
     ingresosProductos: async () => await IngresoProducto.findAll(),
     promociones: async () => await Promocion.findAll(),
-    carritos: async () => await Carrito.findAll(),
     productosCarritos: async () => await ProductoCarrito.findAll(),
-    detallefacturas: async () => await DetalleFactura.findAll(),
     facturas: async () => await Factura.findAll(),
     pagos: async () => await Pago.findAll(),
     preguntas: async () => await Pregunta.findAll(),
-    respuestas: async () => await Respuesta.findAll(),
     mascotasByPersona: async (_, { idPersona }) => {
       const persona = await Persona.findByPk(idPersona)
       if (!persona) {
@@ -79,13 +75,6 @@ const oldResolvers = {
         id_persona,
         id_ps,
       }),
-
-    createRespuesta: async (_, { id_respuesta, descripcion, id_preguntas }) =>
-      await Respuesta.create({
-        id_respuesta,
-        id_preguntas,
-      }),
-
     createPromocion: async (
       _,
       { id_promocion, porcentaje, fecha_inicio, fecha_fin, id_ps },
@@ -118,13 +107,6 @@ const oldResolvers = {
         monto,
       }),
 
-    createCarrito: async (_, { id_persona, fecha, total }) =>
-      await Carrito.create({
-        id_persona,
-        fecha,
-        total,
-      }),
-
     createProductoCarrito: async (
       _,
       { cantidad, subtotal, id_ps, id_carrito },
@@ -147,19 +129,6 @@ const oldResolvers = {
         id_ps,
       }),
 
-    createProductoServicio: async (
-      _,
-      { nombre, precio, stock, descripcion, categoria, activo },
-    ) =>
-      await ProductoServicio.create({
-        nombre,
-        precio,
-        stock,
-        descripcion,
-        categoria,
-        activo,
-      }),
-
     createProveedor: async (_, { nombre, cuit, activo }) =>
       await Proveedor.create({
         nombre,
@@ -178,20 +147,6 @@ const oldResolvers = {
       })
 
       return product
-    },
-    cancelProductoServicios: async (_, { id_ps }) => {
-      const product = await ProductoServicio.findByPk(id_ps)
-
-      if (!product) {
-        throw new Error('Product not found')
-      }
-
-      await ProductoServicio.update(
-        { activo: false },
-        { where: { id_ps: id_ps } },
-      )
-
-      return { ...product.toJSON(), activo: false }
     },
   },
 }

@@ -162,7 +162,6 @@ const typeDefs = `#graphql
     ): Mascota
 
     createPregunta(
-      idPreguntas: Int!,
       descripcion: String!,
       estado: Boolean!,
       id_persona: Int!,
@@ -170,19 +169,18 @@ const typeDefs = `#graphql
     ): Pregunta
 
     createRespuesta(
-      id_respuesta: Int!,
       descripcion: String!, 
       id_preguntas: Int!,
     ): Respuesta
 
     createPromocion(
-      id_promocion: Int!,
       valor: Float!,
       fecha_inicio: String!,
       fecha_fin: String!,
       activo: Boolean!,
       id_ps: Int!,
     ): Promocion
+    
     createPago(
       id_carrito: Int!,
       fecha: String!,
@@ -215,7 +213,7 @@ const typeDefs = `#graphql
       precio:Float!,
       stock:Int!,
       descripcion:String,
-      categoria: String,
+      categoria: String!,
       activo:Boolean!,
     ): ProductoServicio
 
