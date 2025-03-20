@@ -3,8 +3,6 @@
 const {
     getProveedor,
     createProveedor,
-    cancelProveedor,
-    updateProveedor,
   } = require('../controllers/proveedor.controller')
 
   const proveedorResolvers = {
@@ -13,8 +11,7 @@ const {
     },
     Mutation:{
         createProveedor: async (_, args) => await createProveedor(args),
-        cancelProveedor: async (_, id_proveedor) => await cancelProveedor(id_proveedor),
-        updateProveedor: async (_, args) => await updateProveedor(args),
+       
     },
 }
 

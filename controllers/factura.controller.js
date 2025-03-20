@@ -1,6 +1,3 @@
-//aca va la logica de negocio
-// validaciones etc
-const { omitBy, isUndefined } = require('lodash') // Para limpiar valores undefined
 
 const { Factura } = require('../models')
 

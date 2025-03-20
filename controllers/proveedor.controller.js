@@ -1,6 +1,3 @@
-//aca va la logica de negocio
-// validaciones etc
-const { omitBy, isUndefined } = require('lodash') // Para limpiar valores undefined
 
 const { Proveedor } = require('../models')
 
@@ -43,4 +40,4 @@ async function createProveedor({
 }
 
 
-module.exports = { getPersonas, createPersona}
+module.exports = { getProveedor, createProveedor}
