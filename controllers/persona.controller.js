@@ -9,7 +9,7 @@ const { Persona } = require('../models')
 // funciones
 //getpersona
 
-async function getPersona() {
+async function getPersonas() {
   return await Persona.findAll()
 }
 
@@ -23,9 +23,17 @@ async function createPersona({
   tipo,
 }) {
   try {
-    //check the requireds
-    if (!dni || !nombre || !apellido) {
-      throw new Error('DNI, name and last name are required')
+    if (
+      !dni ||
+      !nombre ||
+      !apellido ||
+      !telefono ||
+      !correo_electronico ||
+      !domicilio
+    ) {
+      throw new Error(
+        'DNI, name, last name, phone, email and address are required',
+      )
     }
 
     const persona = await Persona.create({
@@ -89,4 +97,4 @@ async function updatePersona({ id_persona, input }) {
   }
 }
 
-module.exports = { getPersona, createPersona, cancelPersona, updatePersona }
+module.exports = { getPersonas, createPersona, cancelPersona, updatePersona }

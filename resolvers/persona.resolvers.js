@@ -1,7 +1,7 @@
 // solo query y mutation de persona
 
 const {
-  getPersona,
+  getPersonas,
   createPersona,
   cancelPersona,
   updatePersona,
@@ -11,7 +11,7 @@ const {
 
 const personaResolvers = {
   Query: {
-    personas: async () => await getPersona(),
+    personas: async () => await getPersonas(),
   },
   Mutation: {
     createPersona: async (_, args) => await createPersona(args),
