@@ -2,6 +2,7 @@ const {
   getProductosServicios,
   createProductoServicio,
   cancelProductoServicios,
+  updateProductoServicio,
 } = require('../controllers/productoServicio.controller')
 
 const productoServicioResolvers = {
@@ -13,6 +14,7 @@ const productoServicioResolvers = {
       await createProductoServicio(args),
     cancelProductoServicios: async (_, id_ps) =>
       await cancelProductoServicios(id_ps),
+    updateProductoServicio: async (_, args) => await updateProductoServicio(args),
   },
 }
 

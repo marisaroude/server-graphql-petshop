@@ -1,3 +1,5 @@
+const { omitBy, isUndefined } = require('lodash') // Para limpiar valores undefined
+
 const { Mascota } = require('../models');
 
 
@@ -55,6 +57,30 @@ async function cancelMascota({ id_mascota }) {
   }
 }
 
+//actualizar mascotas
+async function updateMascota({ id_mascota, input }) {
+  try {
+    console.log('{ id_mascota, input }', { id_mascota, input })
+    if (!id_mascota) {
+      throw new Error('Pet is required')
+    }
 
+    const mascota = await Mascota.findByPk(id_mascota)
+    if (!mascota) {
+      throw new Error('Pet not found')
+    }
+    
+    // Filtrar valores undefined para evitar sobrescribir con null
+    const dataToUpdate = omitBy(input, isUndefined)
 
-module.exports = { getMascotas, createMascota, cancelMascota};
+    await Mascota.update(dataToUpdate, {
+      where: { id_mascota },
+    })
+
+    return { ...mascota.toJSON(), ...dataToUpdate }
+  } catch (error) {
+    throw new Error(`Error updating the Pet: ${error.message}`)
+  }
+}
+
+module.exports = { getMascotas, createMascota, cancelMascota, updateMascota};

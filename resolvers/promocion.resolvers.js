@@ -1,4 +1,4 @@
-// solo query y mutation de persona
+// solo query y mutation de promocion
 
 const {
     getPromocion,

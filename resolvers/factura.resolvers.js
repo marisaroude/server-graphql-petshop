@@ -2,7 +2,7 @@
 
 const {
     getFactura,
-    createFactura,
+   
   } = require('../controllers/factura.controller')
   
   ///aca llama al controller y retorna
@@ -12,7 +12,7 @@ const {
       facturas: async () => await getFactura(),
     },
     Mutation: {
-      createFactura: async (_, args) => await createFactura(args),
+      
       
     },
   }

@@ -1,3 +1,5 @@
+const { omitBy, isUndefined } = require('lodash') // Para limpiar valores undefined
+
 const { ProductoServicio } = require('../models')
 
 async function getProductosServicios() {
@@ -55,8 +57,35 @@ async function cancelProductoServicios({ id_ps }) {
   }
 }
 
+//Modificar los productos o servicios
+async function updateProductoServicio({ id_ps, input }) {
+  try {
+    console.log('{ id_ps, input }', { id_ps, input })
+    if (!id_ps) {
+      throw new Error('Service is required')
+    }
+
+    const producto_servicio = await ProductoServicio.findByPk(id_ps)
+    if (!producto_servicio) {
+      throw new Error('Service not found')
+    }
+    //
+    // Filtrar valores undefined para evitar sobrescribir con null
+    const dataToUpdate = omitBy(input, isUndefined)
+
+    await ProductoServicio.update(dataToUpdate, {
+      where: { id_ps},
+    })
+
+    return { ...producto_servicio.toJSON(), ...dataToUpdate }
+  } catch (error) {
+    throw new Error(`Error updating the Service: ${error.message}`)
+  }
+}
+
 module.exports = {
   getProductosServicios,
   createProductoServicio,
   cancelProductoServicios,
+  updateProductoServicio
 }

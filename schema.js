@@ -12,6 +12,32 @@ const typeDefs = `#graphql
     tipo: Boolean
     fecha_baja: String
     }
+
+    input UpdateMascotaInput {
+    nombre: String
+    tipo: String
+    raza: String
+    descripcion: String
+    fecha_baja: String
+    }
+
+    input UpdatePromocionInput {
+    valor: Float
+    fecha_inicio: String
+    fecha_fin: String
+    activo: Boolean
+    id_ps: Int
+    }
+
+    input UpdateProductoServicioInput {
+    nombre: String
+    precio: Int
+    stock: Int
+    descripcion: String
+    categoria: String
+    activo: Boolean
+    }
+
 #We need create a types for Query, Fields, Mutation.
   type Persona {
     id_persona: Int!
@@ -240,6 +266,21 @@ const typeDefs = `#graphql
     id_persona: Int!, 
     input: UpdatePersonaInput!
     ): Persona
+
+     updateMascota(
+    id_mascota: Int!, 
+    input: UpdateMascotaInput!
+    ): Mascota
+    
+     updatePromocion(
+    id_promocion: Int!, 
+    input: UpdatePromocionInput!
+    ): Promocion
+
+     updateProductoServicio(
+    id_ps: Int!, 
+    input: UpdateProductoServicioInput!
+    ): ProductoServicio
 
   }
 
