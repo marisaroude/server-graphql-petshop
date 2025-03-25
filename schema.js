@@ -12,6 +12,22 @@ const typeDefs = `#graphql
     tipo: Boolean
     fecha_baja: String
     }
+
+    input UpdateMascotaInput {
+    id_persona: Int
+    nombre: String
+    tipo: String
+    raza: String
+    descripcion: String
+    fecha_baja: String
+    }
+
+    input UpdatePromocionInput {
+    echa_inicio: String
+    fecha_fin: String
+    activo: Boolean
+    id_ps: Int
+    }
 #We need create a types for Query, Fields, Mutation.
   type Persona {
     id_persona: Int!
@@ -134,7 +150,7 @@ const typeDefs = `#graphql
     pagos: [Pago] 
     facturas: [Factura] 
     detallefacturas: [DetalleFactura] 
-    mascotasByPersona(idPersona: Int!): [Mascota]
+    mascotasByPersona(id_persona: Int!): [Mascota]
   }
 
   type Mutation 
@@ -187,6 +203,12 @@ const typeDefs = `#graphql
       monto: Float!,
 
     ): Pago
+
+    createFactura(
+      id_pago: Int!,
+      fecha: String!,
+      total: Float!,
+    ): Factura
 
     createCarrito(
       id_persona: Int!,
@@ -241,6 +263,15 @@ const typeDefs = `#graphql
     input: UpdatePersonaInput!
     ): Persona
 
+    updateMascota(
+    id_mascota: Int!, 
+    input: UpdateMascotaInput!
+    ): Mascota
+
+    updatePromocion(
+    id_promocion: Int!, 
+    input: UpdatePromocionInput!
+    ): Promocion
   }
 
 
