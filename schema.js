@@ -160,7 +160,7 @@ const typeDefs = `#graphql
     pagos: [Pago] 
     facturas: [Factura] 
     detallefacturas: [DetalleFactura] 
-    mascotasByPersona(idPersona: Int!): [Mascota]
+    mascotasByPersona(id_persona: Int!): [Mascota]
   }
 
   type Mutation 
@@ -213,6 +213,12 @@ const typeDefs = `#graphql
       monto: Float!,
 
     ): Pago
+
+    createFactura(
+      id_pago: Int!,
+      fecha: String!,
+      total: Float!,
+    ): Factura
 
     createCarrito(
       id_persona: Int!,

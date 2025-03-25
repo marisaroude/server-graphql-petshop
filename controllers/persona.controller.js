@@ -1,13 +1,6 @@
-//aca va la logica de negocio
-// validaciones etc
 const { omitBy, isUndefined } = require('lodash') // Para limpiar valores undefined
 
 const { Persona } = require('../models')
-
-//lamar los modelos aca en  los controllers
-
-// funciones
-//getpersona
 
 async function getPersonas() {
   return await Persona.findAll()
@@ -97,4 +90,18 @@ async function updatePersona({ id_persona, input }) {
   }
 }
 
-module.exports = { getPersonas, createPersona, cancelPersona, updatePersona }
+async function getMascotasByIDPersona({ id_persona }) {
+  const persona = await Persona.findByPk(id_persona)
+  if (!persona) {
+    throw new Error(`Persona with id ${id_persona} not found`)
+  }
+  return await persona.getMascotas()
+}
+
+module.exports = {
+  getPersonas,
+  createPersona,
+  cancelPersona,
+  updatePersona,
+  getMascotasByIDPersona,
+}
