@@ -81,7 +81,7 @@ async function updatePromocion({ id_promocion, input }) {
     if (!promocion) {
       throw new Error('Promotion not found')
     }
-    //
+    
     // Filtrar valores undefined para evitar sobrescribir con null
     const dataToUpdate = omitBy(input, isUndefined)
 
