@@ -6,6 +6,22 @@ async function getPersonas() {
   return await Persona.findAll()
 }
 
+async function getPersonByEmail({ email }) {
+  if (!email) {
+    throw new Error('Email is required')
+  }
+
+  const persona = await Persona.findOne({
+    where: { correo_electronico: email },
+  })
+
+  if (!persona) {
+    throw new Error(`Persona with email ${email} not found`)
+  }
+
+  return persona
+}
+
 async function createPersona({
   dni,
   nombre,
@@ -100,6 +116,7 @@ async function getMascotasByIDPersona({ id_persona }) {
 
 module.exports = {
   getPersonas,
+  getPersonByEmail,
   createPersona,
   cancelPersona,
   updatePersona,

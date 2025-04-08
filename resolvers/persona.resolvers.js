@@ -6,6 +6,7 @@ const {
   cancelPersona,
   updatePersona,
   getMascotasByIDPersona,
+  getPersonByEmail,
 } = require('../controllers/persona.controller')
 
 ///aca llama al controller y retorna
@@ -13,6 +14,7 @@ const {
 const personaResolvers = {
   Query: {
     personas: async () => await getPersonas(),
+    getPersonByEmail: async (_, email) => await getPersonByEmail(email),
     mascotasByPersona: async (_, args) => await getMascotasByIDPersona(args),
   },
   Mutation: {

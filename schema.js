@@ -148,6 +148,7 @@ const typeDefs = `#graphql
 
   type Query {
     personas: [Persona]
+    getPersonByEmail(email: String!): Persona
     mascotas: [Mascota]
     proveedores: [Proveedor]
     productosServicios: [ProductoServicio]
