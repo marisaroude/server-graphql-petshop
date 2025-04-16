@@ -47,7 +47,7 @@ const typeDefs = `#graphql
     telefono: String!
     correo_electronico: String!
     domicilio: String!
-    tipo: Boolean!
+    tipo: Boolean
     fecha_baja: String
   }
 
@@ -152,6 +152,7 @@ const typeDefs = `#graphql
     mascotas: [Mascota]
     proveedores: [Proveedor]
     productosServicios: [ProductoServicio]
+    productoServicioById(id_ps: Int!): ProductoServicio
     ingresosProductos: [IngresoProducto]
     promociones: [Promocion]
     carritos: [Carrito]
@@ -173,7 +174,7 @@ const typeDefs = `#graphql
       telefono: String!,
       correo_electronico: String!,
       domicilio: String!,
-      tipo: Boolean!,
+      tipo: Boolean,
       fecha_baja: String
     ): Persona
 

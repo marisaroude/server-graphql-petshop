@@ -6,6 +6,20 @@ async function getProductosServicios() {
   return await ProductoServicio.findAll()
 }
 
+async function getProductoServicioById({ id_ps }) {
+  if (!id_ps) {
+    throw new Error('ID is required')
+  }
+
+  const product = await ProductoServicio.findByPk(id_ps)
+
+  if (!product) {
+    throw new Error(`Product/Service with id ${id_ps} not found`)
+  }
+
+  return product
+}
+
 async function createProductoServicio({
   nombre,
   precio,
@@ -74,7 +88,7 @@ async function updateProductoServicio({ id_ps, input }) {
     const dataToUpdate = omitBy(input, isUndefined)
 
     await ProductoServicio.update(dataToUpdate, {
-      where: { id_ps},
+      where: { id_ps },
     })
 
     return { ...producto_servicio.toJSON(), ...dataToUpdate }
@@ -85,7 +99,8 @@ async function updateProductoServicio({ id_ps, input }) {
 
 module.exports = {
   getProductosServicios,
+  getProductoServicioById,
   createProductoServicio,
   cancelProductoServicios,
-  updateProductoServicio
+  updateProductoServicio,
 }
