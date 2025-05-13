@@ -4,6 +4,10 @@ const typeDefs = `#graphql
   # The "Query" type is special: it lists all of the available queries that
   # clients can execute, along with the return type for each. 
 
+  type SuccessMessage {
+    message: String
+  }
+    
   input UpdatePersonaInput {
     nombre: String
     telefono: String
@@ -157,6 +161,7 @@ const typeDefs = `#graphql
     promociones: [Promocion]
     carritos: [Carrito]
     productosCarritos: [ProductoCarrito]
+    productosCarritosById(id_carrito: Int!): [ProductoCarrito]
     preguntas: [Pregunta]
     respuestas: [Respuesta] 
     pagos: [Pago] 
@@ -264,7 +269,7 @@ const typeDefs = `#graphql
     
     deleteProductosCarrito(
       id_pc: Int!
-    ): ProductoCarrito
+    ): SuccessMessage
 
     cancelProductoServicios(
       id_ps: Int!
