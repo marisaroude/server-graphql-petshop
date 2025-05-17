@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pago Exitoso</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            height: 80px;
+            padding-left: 2rem;
+            cursor: pointer;
+        }
+
+        .illustration {
+            height: 140px;
+            padding-right: 2rem;
+        }
+
+        .content {
+            text-align: center;
+            margin: 2rem;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            background-color: #D7ACD4;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Header Banner -->
+    <div class="header">
+        <img src="/LOGO-puppis.png" alt="Logo" class="logo" />
+        <img src="/ILLUSTRATION-dog.png" alt="Illustration Dog" class="illustration" />
+    </div>
+
+    <!-- Success Message -->
+    <div class="content">
+        <h1>¡MUCHAS GRACIAS POR TU COMPRA!</h1>
+        <h2>Te llegará a tu correo un email con el ID y monto de la factura.</h2>
+
+        <a onclick="goHome()" class="back-link">Volver al sitio</a>
+    </div>
+
+    <script>
+        function goHome() {
+            window.location.href = "http://localhost:3000/";
+        }
+    </script>
+</body>
+</html>

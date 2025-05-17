@@ -130,6 +130,7 @@ const typeDefs = `#graphql
 
   type Pago {
     id_pago: Int!
+    id_mercadopago: Int!
     id_carrito: Int!
     fecha: String!
     monto: Float!
@@ -215,6 +216,7 @@ const typeDefs = `#graphql
     ): Promocion
     
     createPago(
+      id_mercadopago: Int!,
       id_carrito: Int!,
       fecha: String!,
       monto: Float!,
