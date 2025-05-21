@@ -40,6 +40,7 @@ const typeDefs = `#graphql
     descripcion: String
     categoria: String
     activo: Boolean
+    image: String
     }
 
 #We need create a types for Query, Fields, Mutation.
@@ -80,6 +81,7 @@ const typeDefs = `#graphql
     descripcion: String
     categoria: String!
     activo: Boolean!
+    image: String
   }
 
   type IngresoProducto {
@@ -254,6 +256,7 @@ const typeDefs = `#graphql
       descripcion:String,
       categoria: String!,
       activo:Boolean!,
+      image: String,
     ): ProductoServicio
 
     createProveedor(

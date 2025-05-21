@@ -27,6 +27,7 @@ async function createProductoServicio({
   descripcion,
   categoria,
   activo,
+  image,
 }) {
   try {
     //what happen with activo?
@@ -41,6 +42,7 @@ async function createProductoServicio({
       descripcion,
       categoria,
       activo,
+      image,
     })
     return productoServicio
   } catch (error) {
