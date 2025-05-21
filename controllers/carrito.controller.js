@@ -5,7 +5,6 @@ async function getCarritos() {
 }
 
 async function createCarrito({ id_persona, fecha, total }) {
-  console.log({ id_persona, fecha, total })
   if (!id_persona || !fecha || total == null) {
     throw new Error('ID person, date and total are required')
   }

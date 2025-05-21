@@ -44,7 +44,6 @@ async function createProductoCarrito({
       },
     })
 
-    console.log('EXISTING', existingProduct)
     if (existingProduct) {
       // Actualizar la cantidad y el subtotal si ya existe el producto
       const updatedCantidad =
