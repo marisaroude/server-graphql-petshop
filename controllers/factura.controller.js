@@ -23,4 +23,20 @@ async function createFactura({ id_factura, id_pago, fecha, total }) {
   }
 }
 
-module.exports = { getFactura, createFactura }
+async function getFacturaById({ id_factura }) {
+  if (!id_factura) {
+    throw new Error('ID factura is required')
+  }
+
+  const factura = await Factura.findOne({
+    where: { id_factura: id_factura },
+  })
+
+  if (!factura) {
+    throw new Error(`Factura with id_factura ${id_factura} not found`)
+  }
+
+  return factura
+}
+
+module.exports = { getFactura, createFactura, getFacturaById }

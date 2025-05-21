@@ -83,7 +83,6 @@ async function cancelPersona({ id_persona }) {
 }
 async function updatePersona({ id_persona, input }) {
   try {
-    console.log('{ id_persona, input }', { id_persona, input })
     if (!id_persona) {
       throw new Error('ID person is required')
     }
@@ -114,6 +113,22 @@ async function getMascotasByIDPersona({ id_persona }) {
   return await persona.getMascotas()
 }
 
+async function getPersonById({ id_persona }) {
+  if (!id_persona) {
+    throw new Error('ID persona is required')
+  }
+
+  const persona = await Persona.findOne({
+    where: { id_persona: id_persona },
+  })
+
+  if (!persona) {
+    throw new Error(`Persona with id_persona ${id_persona} not found`)
+  }
+
+  return persona
+}
+
 module.exports = {
   getPersonas,
   getPersonByEmail,
@@ -121,4 +136,5 @@ module.exports = {
   cancelPersona,
   updatePersona,
   getMascotasByIDPersona,
+  getPersonById,
 }

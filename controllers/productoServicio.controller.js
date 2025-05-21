@@ -76,7 +76,6 @@ async function cancelProductoServicios({ id_ps }) {
 //Modificar los productos o servicios
 async function updateProductoServicio({ id_ps, input }) {
   try {
-    console.log('{ id_ps, input }', { id_ps, input })
     if (!id_ps) {
       throw new Error('Service is required')
     }
