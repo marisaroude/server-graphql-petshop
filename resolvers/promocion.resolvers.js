@@ -3,11 +3,14 @@ const {
   createPromocion,
   cancelPromocion,
   updatePromocion,
+  getPromocionById,
 } = require('../controllers/promocion.controller')
 
 const promocionResolvers = {
   Query: {
     promociones: async () => await getPromocion(),
+    promocionById: async (_, id_promocion) =>
+      await getPromocionById(id_promocion),
   },
   Mutation: {
     createPromocion: async (_, args) => await createPromocion(args),

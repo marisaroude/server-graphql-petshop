@@ -29,7 +29,7 @@ const formatItems = async items => {
           title: producto.nombre,
           id: item.id_carrito,
           description: producto.descripcion,
-          unit_price: Number(producto.precio), // precio unitario, mercado pago lo multiplica x la cantidad
+          unit_price: Number(item.subtotal) / Number(item.cantidad), // precio unitario, mercado pago lo multiplica x la cantidad
           quantity: item.cantidad,
         }
       }),

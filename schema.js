@@ -152,6 +152,11 @@ const typeDefs = `#graphql
     id_factura: Int!
   }
 
+  type InformeVenta {
+    factura: Factura!
+    pago: Pago!
+    detalles: [DetalleFactura!]!
+  }
   type Query {
     personas: [Persona]
     getPersonByEmail(email: String!): Persona
@@ -162,6 +167,7 @@ const typeDefs = `#graphql
     productoServicioById(id_ps: Int!): ProductoServicio
     ingresosProductos: [IngresoProducto]
     promociones: [Promocion]
+    promocionById(id_promocion: Int!): Promocion
     carritos: [Carrito]
     productosCarritos: [ProductoCarrito]
     productosCarritosById(id_carrito: Int!): [ProductoCarrito]
@@ -173,6 +179,8 @@ const typeDefs = `#graphql
     facturas: [Factura] 
     detallefacturas: [DetalleFactura] 
     mascotasByPersona(id_persona: Int!): [Mascota]
+    getPersonById(id_persona: Int!): Persona
+    getAllFacturaWithDetails: [InformeVenta!]!
   }
 
   type Mutation 

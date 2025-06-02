@@ -1,4 +1,4 @@
-const { Factura } = require('../models')
+const { Factura, Pago, DetalleFactura } = require('../models')
 
 async function getFactura() {
   return await Factura.findAll()
@@ -39,4 +39,29 @@ async function getFacturaById({ id_factura }) {
   return factura
 }
 
-module.exports = { getFactura, createFactura, getFacturaById }
+async function getAllFacturaWithDetails() {
+  const facturas = await Factura.findAll({
+    include: [
+      { model: Pago, as: 'pago' },
+      {
+        model: DetalleFactura,
+        as: 'detalles_factura',
+      },
+    ],
+  })
+
+  return facturas.map(factura => ({
+    factura,
+    pago: factura.pago,
+    detalles: factura.detalles_factura.map(df => ({
+      ...df.toJSON(),
+      subtotal: df.cantidad * parseFloat(df.precio),
+    })),
+  }))
+}
+module.exports = {
+  getFactura,
+  createFactura,
+  getFacturaById,
+  getAllFacturaWithDetails,
+}

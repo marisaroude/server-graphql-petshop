@@ -70,6 +70,20 @@ Factura.hasMany(DetalleFactura, {
 DetalleFactura.belongsTo(Factura, { foreignKey: 'id_factura', as: 'factura' })
 
 //ver el de pagos
+// Persona.hasOne(Carrito, { foreignKey: 'id_persona', as: 'carrito' })
+// Carrito.belongsTo(Persona, { foreignKey: 'id_persona', as: 'persona' })
+
+Pago.hasOne(Factura, { foreignKey: 'id_pago', as: 'factura' })
+Factura.belongsTo(Pago, { foreignKey: 'id_pago', as: 'pago' })
+
+Carrito.hasMany(Pago, {
+  foreignKey: 'id_carrito',
+  as: 'pago',
+})
+Pago.belongsTo(Carrito, {
+  foreignKey: 'id_carrito',
+  as: 'carrito',
+})
 
 Pregunta.hasMany(Respuesta, { foreignKey: 'id_preguntas', as: 'respuesta' })
 Respuesta.belongsTo(Pregunta, { foreignKey: 'id_preguntas', as: 'pregunta' })
