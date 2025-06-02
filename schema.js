@@ -160,7 +160,6 @@ const typeDefs = `#graphql
   type Query {
     personas: [Persona]
     getPersonByEmail(email: String!): Persona
-    getPersonById(id_persona: Int!): Persona
     mascotas: [Mascota]
     proveedores: [Proveedor]
     productosServicios: [ProductoServicio]
@@ -313,6 +312,6 @@ const typeDefs = `#graphql
   }
 
 
-`;
+`
 
-module.exports = { typeDefs };
+module.exports = { typeDefs }
