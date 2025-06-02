@@ -115,11 +115,10 @@ const typeDefs = `#graphql
     id_ps: Int!
     id_carrito: Int!
   }
-
   type Pregunta {
     id_preguntas: Int!
     descripcion: String!
-    estado: Boolean!
+    estado: Boolean
     id_persona: Int!
     id_ps: Int!
   }
@@ -156,6 +155,7 @@ const typeDefs = `#graphql
   type Query {
     personas: [Persona]
     getPersonByEmail(email: String!): Persona
+    getPersonById(id_persona: Int!): Persona
     mascotas: [Mascota]
     proveedores: [Proveedor]
     productosServicios: [ProductoServicio]
@@ -166,7 +166,9 @@ const typeDefs = `#graphql
     productosCarritos: [ProductoCarrito]
     productosCarritosById(id_carrito: Int!): [ProductoCarrito]
     preguntas: [Pregunta]
+    preguntasByProductId(id_ps: Int!): [Pregunta]
     respuestas: [Respuesta] 
+    respuestasByPreguntaId(id_preguntas: Int!): [Respuesta]
     pagos: [Pago] 
     facturas: [Factura] 
     detallefacturas: [DetalleFactura] 
@@ -199,7 +201,7 @@ const typeDefs = `#graphql
 
     createPregunta(
       descripcion: String!,
-      estado: Boolean!,
+      estado: Boolean = false,
       id_persona: Int!,
       id_ps: Int!,
     ): Pregunta
@@ -303,6 +305,6 @@ const typeDefs = `#graphql
   }
 
 
-`
+`;
 
-module.exports = { typeDefs }
+module.exports = { typeDefs };
