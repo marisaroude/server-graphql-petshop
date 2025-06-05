@@ -43,6 +43,12 @@ const typeDefs = `#graphql
     image: String
     }
 
+    input UpdateProveedorInput {
+    nombre: String
+    cuit: String
+    activo: Boolean
+    }
+
 #We need create a types for Query, Fields, Mutation.
   type Persona {
     id_persona: Int!
@@ -180,6 +186,8 @@ const typeDefs = `#graphql
     mascotasByPersona(id_persona: Int!): [Mascota]
     getPersonById(id_persona: Int!): Persona
     getAllFacturaWithDetails: [InformeVenta!]!
+    getFacturaWithDetailsById(id_factura:Int!): InformeVenta!
+    proveedorById(id_proveedor: Int!): Proveedor
   }
 
   type Mutation 
@@ -308,6 +316,11 @@ const typeDefs = `#graphql
     id_ps: Int!, 
     input: UpdateProductoServicioInput!
     ): ProductoServicio
+
+    updateProveedor(
+    id_proveedor: Int!, 
+    input: UpdateProveedorInput!
+    ): Proveedor
 
   }
 

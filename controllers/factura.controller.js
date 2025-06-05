@@ -59,9 +59,32 @@ async function getAllFacturaWithDetails() {
     })),
   }))
 }
+
+async function getFacturaWithDetailsById({ id_factura }) {
+  const factura = await Factura.findOne({
+    where: { id_factura: id_factura },
+    include: [
+      { model: Pago, as: 'pago' },
+      {
+        model: DetalleFactura,
+        as: 'detalles_factura',
+      },
+    ],
+  })
+
+  return {
+    factura,
+    pago: factura.pago,
+    detalles: factura.detalles_factura.map(df => ({
+      ...df.toJSON(),
+      subtotal: df.cantidad * parseFloat(df.precio),
+    })),
+  }
+}
 module.exports = {
   getFactura,
   createFactura,
   getFacturaById,
   getAllFacturaWithDetails,
+  getFacturaWithDetailsById,
 }
