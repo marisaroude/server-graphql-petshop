@@ -33,6 +33,11 @@ const typeDefs = `#graphql
     id_ps: Int
     }
 
+    type IngresoProductoResponse {
+      ingreso: IngresoProducto
+      updatedProduct: ProductoServicio
+    }
+
     input UpdateProductoServicioInput {
     nombre: String
     precio: Int
@@ -266,7 +271,7 @@ const typeDefs = `#graphql
       subtotal:Float!,
       cantidad:Int!,
       id_ps:Int!,
-    ): IngresoProducto
+    ): IngresoProductoResponse
 
     createProductoServicio(
       nombre:String!,
