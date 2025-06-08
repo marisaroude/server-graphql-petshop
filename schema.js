@@ -23,6 +23,7 @@ const typeDefs = `#graphql
     raza: String
     descripcion: String
     fecha_baja: String
+    image: String
     }
 
     input UpdatePromocionInput {
@@ -75,6 +76,7 @@ const typeDefs = `#graphql
     raza: String
     descripcion: String
     fecha_baja: String
+    image: String
   }
 
   type Proveedor {
@@ -172,6 +174,7 @@ const typeDefs = `#graphql
     personas: [Persona]
     getPersonByEmail(email: String!): Persona
     mascotas: [Mascota]
+    mascotaById(id_mascota:Int!): Mascota
     proveedores: [Proveedor]
     productosServicios: [ProductoServicio]
     productoServicioById(id_ps: Int!): ProductoServicio
@@ -217,6 +220,7 @@ const typeDefs = `#graphql
       raza: String,
       descripcion: String,
       fecha_baja: String,
+      image: String,
     ): Mascota
 
     createPregunta(
