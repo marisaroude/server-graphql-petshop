@@ -2,21 +2,21 @@ const {
   getRespuestas,
   createRespuesta,
   getRespuestasByPreguntaId,
-} = require("../controllers/respuesta.controller");
+} = require('../controllers/respuesta.controller')
 
 const respuestaResolvers = {
   Query: {
     respuestas: async () => await getRespuestas(),
-    respuestasByPreguntaId: async (_, { id_pregunta }) =>
-      await getRespuestasByPreguntaId({ id_pregunta }),
+    respuestasByPreguntaId: async (_, { id_preguntas }) =>
+      await getRespuestasByPreguntaId({ id_preguntas }),
   },
   Mutation: {
     createRespuesta: async (_, args) => await createRespuesta(args),
   },
 
   Respuesta: {
-    autor: () => "VeterinariaPupis",
+    autor: () => 'VeterinariaPupis',
   },
-};
+}
 
-module.exports = respuestaResolvers;
+module.exports = respuestaResolvers
