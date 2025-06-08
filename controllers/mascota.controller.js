@@ -6,8 +6,31 @@ async function getMascotas() {
   return await Mascota.findAll()
 }
 
+async function getMascotaById({ id_mascota }) {
+  if (!id_mascota) {
+    throw new Error('ID mascota is required')
+  }
+
+  const mascota = await Mascota.findOne({
+    where: { id_mascota: id_mascota },
+  })
+
+  if (!mascota) {
+    throw new Error(`Mascota with id_mascota ${id_mascota} not found`)
+  }
+
+  return mascota
+}
+
 // Crear una nueva mascota
-async function createMascota({ id_persona, nombre, tipo, raza, descripcion }) {
+async function createMascota({
+  id_persona,
+  nombre,
+  tipo,
+  raza,
+  descripcion,
+  image,
+}) {
   try {
     // nose si el id de la persona tiene q ir obligatorio
     if (!id_persona || !nombre || !tipo || !descripcion) {
@@ -20,6 +43,7 @@ async function createMascota({ id_persona, nombre, tipo, raza, descripcion }) {
       tipo,
       raza,
       descripcion,
+      image,
     })
 
     return mascota
@@ -73,4 +97,10 @@ async function updateMascota({ id_mascota, input }) {
   }
 }
 
-module.exports = { getMascotas, createMascota, cancelMascota, updateMascota }
+module.exports = {
+  getMascotas,
+  getMascotaById,
+  createMascota,
+  cancelMascota,
+  updateMascota,
+}
