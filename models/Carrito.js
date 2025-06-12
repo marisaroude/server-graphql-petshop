@@ -20,10 +20,6 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.DATE,
         allowNull: false,
       },
-      total: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-      },
     },
     {
       tableName: 'carrito',

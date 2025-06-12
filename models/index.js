@@ -88,6 +88,15 @@ Pago.belongsTo(Carrito, {
 Pregunta.hasMany(Respuesta, { foreignKey: 'id_preguntas', as: 'respuesta' })
 Respuesta.belongsTo(Pregunta, { foreignKey: 'id_preguntas', as: 'pregunta' })
 
+ProductoServicio.hasMany(DetalleFactura, {
+  foreignKey: 'id_ps',
+  as: 'detalle_factura',
+})
+DetalleFactura.belongsTo(ProductoServicio, {
+  foreignKey: 'id_ps',
+  as: 'producto_servicio',
+})
+
 // Sincronizar base de datos (sin forzar recreación de tablas)
 sequelize
   .sync({ force: false })

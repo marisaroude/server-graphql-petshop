@@ -3,6 +3,7 @@ const {
   createProductoCarrito,
   deleteProductosCarrito,
   getProductosCarritoById,
+  updateProductoCarrito,
 } = require('../controllers/productoCarrito.controller')
 
 const productoCarritoResolvers = {
@@ -15,6 +16,7 @@ const productoCarritoResolvers = {
     createProductoCarrito: async (_, args) => await createProductoCarrito(args),
     deleteProductosCarrito: async (_, { id_pc }) =>
       await deleteProductosCarrito({ id_pc }),
+    updateProductoCarrito: async (_, args) => await updateProductoCarrito(args),
   },
 }
 

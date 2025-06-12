@@ -1,4 +1,5 @@
-const { ProductoCarrito } = require('../models')
+const { omitBy, isUndefined } = require('lodash') // Para limpiar valores undefined
+const { ProductoCarrito, ProductoServicio } = require('../models')
 
 // Obtener todos los productos en el carrito
 async function getProductosCarrito() {
@@ -96,9 +97,53 @@ async function deleteProductosCarrito({ id_pc }) {
   }
 }
 
+async function updateProductoCarrito({ id_pc, input }) {
+  try {
+    if (!id_pc) {
+      throw new Error('ID person is required')
+    }
+
+    const productoCarrito = await ProductoCarrito.findByPk(id_pc)
+    if (!productoCarrito) {
+      throw new Error('Product cart not found')
+    }
+
+    // Calcular subtotal (ejemplo: cantidad * precio_unitario)
+    // Asumo que tenés precio_unitario en productoCarrito o en otro lado, adaptá según corresponda
+    const cantidad = input.cantidad ?? productoCarrito.cantidad
+
+    const producto = await ProductoServicio.findByPk(input.id_ps)
+    if (!producto) {
+      throw new Error('Product  not found')
+    }
+
+    const precioUnitario = producto.precio || 0
+
+    const subtotalCalculado = cantidad * precioUnitario
+
+    // Creamos el objeto a actualizar con subtotal recalculado
+    const dataToUpdate = {
+      ...input,
+      subtotal: subtotalCalculado,
+    }
+
+    // Filtrar undefined para no sobrescribir con null
+    const filteredDataToUpdate = omitBy(dataToUpdate, isUndefined)
+
+    await ProductoCarrito.update(filteredDataToUpdate, {
+      where: { id_pc },
+    })
+
+    return { ...productoCarrito.toJSON(), ...filteredDataToUpdate }
+  } catch (error) {
+    throw new Error(`Error updating the product cart: ${error.message}`)
+  }
+}
+
 module.exports = {
   getProductosCarrito,
   getProductosCarritoById,
   createProductoCarrito,
   deleteProductosCarrito,
+  updateProductoCarrito,
 }

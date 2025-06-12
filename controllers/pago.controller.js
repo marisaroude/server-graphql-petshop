@@ -1,4 +1,4 @@
-const { Pago } = require('../models')
+const { Pago, Factura, DetalleFactura, ProductoServicio } = require('../models')
 
 // Obtener todos los pagos
 async function getPagos() {
@@ -51,9 +51,55 @@ async function getPagoById({ id_pago }) {
   return pago
 }
 
+async function getPagosByPersonaId({ id_persona }) {
+  const pagos = await Pago.findAll({
+    where: { id_carrito: id_persona },
+    include: [
+      {
+        model: Factura,
+        as: 'factura',
+        include: {
+          model: DetalleFactura,
+          as: 'detalles_factura',
+          include: [
+            {
+              model: ProductoServicio,
+              as: 'producto_servicio',
+            },
+          ],
+        },
+      },
+    ],
+  })
+
+  return pagos.map(pago => {
+    const { factura, ...restPago } = pago.toJSON ? pago.toJSON() : pago
+
+    // factura puede ser null o undefined, chequeamos eso
+    const detalles =
+      factura?.detalles_factura?.map(detalle => {
+        return {
+          ...detalle,
+          producto_servicio: detalle.producto_servicio || null,
+        }
+      }) || []
+
+    return {
+      pago: restPago,
+      factura: factura
+        ? {
+            ...factura,
+            detalles_factura: detalles,
+          }
+        : null,
+    }
+  })
+}
+
 module.exports = {
   getPagos,
   createPago,
   checkIfPaymentExists,
   getPagoById,
+  getPagosByPersonaId,
 }

@@ -55,6 +55,13 @@ const typeDefs = `#graphql
     activo: Boolean
     }
 
+    input UpdateProductoCarritoInput {
+    cantidad: Int
+    subtotal: Float
+    id_ps: Int
+    id_carrito: Int
+    }
+
 #We need create a types for Query, Fields, Mutation.
   type Persona {
     id_persona: Int!
@@ -117,7 +124,6 @@ const typeDefs = `#graphql
   type Carrito {
     id_carrito: Int!
     fecha: String!
-    total: Float!
     id_persona: Int!
   }
 
@@ -170,6 +176,29 @@ const typeDefs = `#graphql
     pago: Pago!
     detalles: [DetalleFactura!]!
   }
+
+
+  type DetalleFacturaWithProduct {
+   id_df: Int!
+    cantidad: Int!
+    precio: String!
+    id_ps: Float!
+    id_factura: Int!
+    producto_servicio: ProductoServicio!
+  }
+    type HistorialCompra {
+      pago: Pago!
+      factura: FacturaWithDetails!
+    }
+
+    type FacturaWithDetails {
+      id_factura: Int!
+      id_pago: Int!
+      fecha: String!
+      total: Float!
+      detalles_factura: [DetalleFacturaWithProduct!]!
+    }
+
   type Query {
     personas: [Persona]
     getPersonByEmail(email: String!): Persona
@@ -195,6 +224,7 @@ const typeDefs = `#graphql
     getPersonById(id_persona: Int!): Persona
     getAllFacturaWithDetails: [InformeVenta!]!
     getFacturaWithDetailsById(id_factura:Int!): InformeVenta!
+    pagosByPersonaId(id_persona: Int!): [HistorialCompra]!
     proveedorById(id_proveedor: Int!): Proveedor
   }
 
@@ -260,7 +290,6 @@ const typeDefs = `#graphql
     createCarrito(
       id_persona: Int!,
       fecha: String!,
-      total: Float!,
     ): Carrito
 
     createProductoCarrito(
@@ -331,6 +360,11 @@ const typeDefs = `#graphql
     input: UpdateProveedorInput!
     ): Proveedor
 
+
+    updateProductoCarrito(
+    id_pc:Int!,
+    input: UpdateProductoCarritoInput!
+    ): ProductoCarrito
   }
 
 
