@@ -47,6 +47,7 @@ const typeDefs = `#graphql
     categoria: String
     activo: Boolean
     image: String
+    fechas_servicios: [String]
     }
 
     input UpdateProveedorInput {
@@ -60,6 +61,7 @@ const typeDefs = `#graphql
     subtotal: Float
     id_ps: Int
     id_carrito: Int
+    fecha_servicio: String
     }
 
 #We need create a types for Query, Fields, Mutation.
@@ -102,6 +104,7 @@ const typeDefs = `#graphql
     categoria: String!
     activo: Boolean!
     image: String
+    fechas_servicios: [String]
   }
 
   type IngresoProducto {
@@ -133,6 +136,7 @@ const typeDefs = `#graphql
     subtotal: Float!
     id_ps: Int!
     id_carrito: Int!
+    fecha_servicio: String
   }
   type Pregunta {
     id_preguntas: Int!
@@ -169,6 +173,7 @@ const typeDefs = `#graphql
     precio: String!
     id_ps: Float!
     id_factura: Int!
+    fecha_servicio: String
   }
 
   type InformeVenta {
@@ -184,6 +189,7 @@ const typeDefs = `#graphql
     precio: String!
     id_ps: Float!
     id_factura: Int!
+    fecha_servicio: String
     producto_servicio: ProductoServicio!
   }
     type HistorialCompra {
@@ -297,6 +303,7 @@ const typeDefs = `#graphql
       subtotal: Float!,
       id_ps: Int!,
       id_carrito: Int!,
+      fecha_servicio: String
     ): ProductoCarrito
 
     createIngresoProducto(
@@ -314,6 +321,7 @@ const typeDefs = `#graphql
       categoria: String!,
       activo:Boolean!,
       image: String,
+      fechas_servicios: [String]
     ): ProductoServicio
 
     createProveedor(

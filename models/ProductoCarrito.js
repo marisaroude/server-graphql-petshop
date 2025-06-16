@@ -32,6 +32,10 @@ module.exports = (sequelize, DataTypes) => {
           key: 'id_carrito',
         },
       },
+      fecha_servicio: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
     },
     {
       tableName: 'producto_carrito',

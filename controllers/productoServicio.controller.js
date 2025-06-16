@@ -28,6 +28,7 @@ async function createProductoServicio({
   categoria,
   activo,
   image,
+  fechas_servicios,
 }) {
   try {
     //what happen with activo?
@@ -43,6 +44,7 @@ async function createProductoServicio({
       categoria,
       activo,
       image,
+      fechas_servicios,
     })
     return productoServicio
   } catch (error) {

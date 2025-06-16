@@ -30,6 +30,7 @@ async function createProductoCarrito({
   subtotal,
   id_ps,
   id_carrito,
+  fecha_servicio,
 }) {
   try {
     // Validar campos requeridos
@@ -66,6 +67,7 @@ async function createProductoCarrito({
       subtotal,
       id_ps,
       id_carrito,
+      fecha_servicio,
     })
     return productoCarrito
   } catch (error) {
