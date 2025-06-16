@@ -1,6 +1,7 @@
 const { Client } = require('pg')
-const { getPagoById } = require('../controllers/pago.controller')
-const { getFacturaById } = require('../controllers/factura.controller')
+const {
+  getFacturaWithDetailsById,
+} = require('../controllers/factura.controller')
 const { getPersonById } = require('../controllers/persona.controller')
 const { sendEmail } = require('./nodemailer.handler')
 
@@ -21,18 +22,16 @@ const listenNewFacturaAndSendEmail = async () => {
       const facturaId = msg.payload
       console.log(`New Factura inserted, id: ${facturaId}`)
       try {
-        const factura = await getFacturaById({ id_factura: facturaId })
+        const facturaWithDetails = await getFacturaWithDetailsById({
+          id_factura: facturaId,
+        })
 
-        if (factura.id_pago) {
-          const pago = await getPagoById({ id_pago: factura.id_pago })
-
-          if (pago.id_carrito) {
-            const customer = await getPersonById({
-              id_persona: pago.id_carrito,
-            })
-            if (customer) {
-              await sendEmail(customer, factura)
-            }
+        if (facturaWithDetails.pago.id_carrito) {
+          const customer = await getPersonById({
+            id_persona: facturaWithDetails.pago.id_carrito,
+          })
+          if (customer) {
+            await sendEmail(customer, facturaWithDetails)
           }
         }
       } catch (error) {
