@@ -142,7 +142,14 @@ const buildEmail = (factura, customer) => {
           .map(
             item => `
           <tr>
-            <td>ID Producto/Servicio: ${item.id_ps}</td>
+            <td>ID: ${item.id_ps}</td>
+            <td>Nombre: ${
+              factura.productos.find(prod => prod.id_ps === item.id_ps)?.nombre
+            }</td>
+            <td>Descripcion: ${
+              factura.productos.find(prod => prod.id_ps === item.id_ps)
+                ?.descripcion
+            }</td>
             <td>Cantidad: ${item.cantidad}</td>
             <td>Valor Unitario: $${item.precio}</td>
             <td>Fecha del servicio: ${
