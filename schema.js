@@ -223,6 +223,7 @@ const typeDefs = `#graphql
     preguntasByProductId(id_ps: Int!): [Pregunta]
     respuestas: [Respuesta] 
     respuestasByPreguntaId(id_preguntas: Int!): [Respuesta]
+    allRespuestas: [Respuesta] 
     pagos: [Pago] 
     facturas: [Factura] 
     detallefacturas: [DetalleFactura] 

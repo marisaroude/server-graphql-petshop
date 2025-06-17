@@ -2,6 +2,7 @@ const {
   getRespuestas,
   createRespuesta,
   getRespuestasByPreguntaId,
+  getAllRespuestas,
 } = require('../controllers/respuesta.controller')
 
 const respuestaResolvers = {
@@ -9,6 +10,7 @@ const respuestaResolvers = {
     respuestas: async () => await getRespuestas(),
     respuestasByPreguntaId: async (_, { id_preguntas }) =>
       await getRespuestasByPreguntaId({ id_preguntas }),
+    allRespuestas: async () => await getAllRespuestas(),
   },
   Mutation: {
     createRespuesta: async (_, args) => await createRespuesta(args),
