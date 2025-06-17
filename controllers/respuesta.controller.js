@@ -2,6 +2,7 @@ const { Respuesta } = require('../models')
 
 async function getRespuestas() {
   return await Respuesta.findAll()
+  order: [['id_respuesta', 'DESC']] // Ordenar por ID desc
 }
 
 async function createRespuesta({ descripcion, id_preguntas }) {
@@ -11,6 +12,10 @@ async function createRespuesta({ descripcion, id_preguntas }) {
 
   const respuesta = await Respuesta.create({ id_preguntas, descripcion })
   return respuesta
+}
+
+async function getAllRespuestas() {
+  return await Respuesta.findAll()
 }
 
 async function getRespuestasByPreguntaId({ id_preguntas }) {
@@ -24,4 +29,9 @@ async function getRespuestasByPreguntaId({ id_preguntas }) {
   }
 }
 
-module.exports = { getRespuestas, createRespuesta, getRespuestasByPreguntaId }
+module.exports = {
+  getRespuestas,
+  createRespuesta,
+  getRespuestasByPreguntaId,
+  getAllRespuestas,
+}
