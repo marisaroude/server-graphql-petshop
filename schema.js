@@ -9,6 +9,8 @@ const typeDefs = `#graphql
   }
     
   input UpdatePersonaInput {
+    dni: String
+    apellido:String
     nombre: String
     telefono: String
     correo_electronico: String
