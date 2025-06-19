@@ -1,6 +1,7 @@
 const { omitBy, isUndefined } = require('lodash') // Para limpiar valores undefined
 
 const { ProductoServicio } = require('../models')
+const { formatDate } = require('../handlers/date.handler')
 
 async function getProductosServicios() {
   return await ProductoServicio.findAll()
@@ -90,6 +91,7 @@ async function updateProductoServicio({ id_ps, input }) {
     // Filtrar valores undefined para evitar sobrescribir con null
     const dataToUpdate = omitBy(input, isUndefined)
 
+    console.log('dataToUpdate', dataToUpdate)
     await ProductoServicio.update(dataToUpdate, {
       where: { id_ps },
     })

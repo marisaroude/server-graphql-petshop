@@ -1,6 +1,7 @@
 const { omitBy, isUndefined } = require('lodash')
 
 const { Mascota } = require('../models')
+const { formatDate } = require('../handlers/date.handler')
 
 async function getMascotas() {
   return await Mascota.findAll()
@@ -62,12 +63,15 @@ async function cancelMascota({ id_mascota }) {
     const mascota = await Mascota.findByPk(id_mascota)
     if (!mascota) throw new Error('Mascota no encontrada')
 
-    mascota.fecha_baja = new Date()
+    const today = new Date()
+    const formattedDate = formatDate(today)
+    mascota.fecha_baja = formattedDate
+
     await mascota.save()
 
     return {
       ...mascota.toJSON(),
-      fecha_baja: mascota.fecha_baja.toISOString(),
+      fecha_baja: formattedDate,
     }
   } catch (error) {
     throw new Error(`Error cancelando la mascota: ${error.message}`)

@@ -3,6 +3,7 @@
 const { omitBy, isUndefined } = require('lodash') // Para limpiar valores undefined
 
 const { Promocion, ProductoServicio } = require('../models')
+const { formatDate } = require('../handlers/date.handler')
 
 //lamar los modelos aca en  los controllers
 
@@ -34,10 +35,13 @@ async function createPromocion({
       )
     }
 
+    const formattedStartDate = formatDate(fecha_inicio)
+    const formattedEndDate = formatDate(fecha_fin)
+
     const promocion = await Promocion.create({
       valor,
-      fecha_inicio,
-      fecha_fin,
+      fecha_inicio: formattedStartDate,
+      fecha_fin: formattedEndDate,
       activo,
       id_ps,
     })

@@ -1,5 +1,6 @@
 const { omitBy, isUndefined } = require('lodash') // Para limpiar valores undefined
 const { ProductoCarrito, ProductoServicio } = require('../models')
+const { formatDate } = require('../handlers/date.handler')
 
 // Obtener todos los productos en el carrito
 async function getProductosCarrito() {
@@ -60,6 +61,7 @@ async function createProductoCarrito({
 
       return existingProduct
     }
+    const formattedDate = formatDate(fecha_servicio)
 
     // Crear el producto si no existe
     const productoCarrito = await ProductoCarrito.create({
@@ -67,7 +69,7 @@ async function createProductoCarrito({
       subtotal,
       id_ps,
       id_carrito,
-      fecha_servicio,
+      fecha_servicio: formattedDate,
     })
     return productoCarrito
   } catch (error) {
