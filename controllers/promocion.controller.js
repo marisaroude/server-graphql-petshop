@@ -58,7 +58,7 @@ async function cancelPromocion({ id_promocion }) {
       throw new Error('promotion is required')
     }
 
-    const promocion = await Promocion.findByPk(id_persona)
+    const promocion = await Promocion.findByPk(id_promocion)
     if (!promocion) throw new Error('Promotion not found')
 
     promocion.activo = false
