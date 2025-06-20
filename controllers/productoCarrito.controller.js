@@ -61,7 +61,7 @@ async function createProductoCarrito({
 
       return existingProduct
     }
-    const formattedDate = formatDate(fecha_servicio)
+    const formattedDate = fecha_servicio ? formatDate(fecha_servicio) : null
 
     // Crear el producto si no existe
     const productoCarrito = await ProductoCarrito.create({
