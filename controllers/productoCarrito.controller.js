@@ -111,9 +111,6 @@ async function updateProductoCarrito({ id_pc, input }) {
     if (!productoCarrito) {
       throw new Error('Product cart not found')
     }
-
-    // Calcular subtotal (ejemplo: cantidad * precio_unitario)
-    // Asumo que tenés precio_unitario en productoCarrito o en otro lado, adaptá según corresponda
     const cantidad = input.cantidad ?? productoCarrito.cantidad
 
     const producto = await ProductoServicio.findByPk(input.id_ps)
@@ -131,7 +128,6 @@ async function updateProductoCarrito({ id_pc, input }) {
       subtotal: subtotalCalculado,
     }
 
-    // Filtrar undefined para no sobrescribir con null
     const filteredDataToUpdate = omitBy(dataToUpdate, isUndefined)
 
     await ProductoCarrito.update(filteredDataToUpdate, {
