@@ -25,12 +25,20 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: true,
       },
       categoria: {
-        type: DataTypes.STRING(20),
+        type: DataTypes.STRING,
         allowNull: false,
+      },
+      image: {
+        type: DataTypes.STRING,
+        allowNull: true,
       },
       activo: {
         type: DataTypes.BOOLEAN,
         defaultValue: true,
+      },
+      fechas_servicios: {
+        type: DataTypes.ARRAY(DataTypes.STRING),
+        allowNull: true,
       },
     },
     {
