@@ -1,7 +1,12 @@
 const { omitBy, isUndefined } = require('lodash') // Para limpiar valores undefined
 const { fn, col } = require('sequelize')
 
-const { ProductoServicio, DetalleFactura } = require('../models')
+const {
+  ProductoServicio,
+  DetalleFactura,
+  IngresoProducto,
+  Proveedor,
+} = require('../models')
 
 async function getProductosServicios() {
   return await ProductoServicio.findAll()
@@ -132,6 +137,26 @@ async function getAllSalesQuantityProduct() {
   }))
 }
 
+async function getInformationIngresosByProductId({ id_ps }) {
+  const ingresos = await IngresoProducto.findAll({
+    attributes: ['id_ps', 'id_proveedor', 'cantidad', 'subtotal'],
+    where: { id_ps },
+    include: [
+      {
+        model: Proveedor,
+        as: 'proveedor',
+      },
+    ],
+  })
+
+  return ingresos.map(i => ({
+    id_ps: i.id_ps,
+    cantidad: i.cantidad,
+    subtotal: i.subtotal,
+    proveedor: i.proveedor,
+  }))
+}
+
 module.exports = {
   getProductosServicios,
   getProductoServicioById,
@@ -139,4 +164,5 @@ module.exports = {
   cancelProductoServicios,
   updateProductoServicio,
   getAllSalesQuantityProduct,
+  getInformationIngresosByProductId,
 }

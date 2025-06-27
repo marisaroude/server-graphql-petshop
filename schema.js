@@ -218,6 +218,14 @@ const typeDefs = `#graphql
       total_facturado: Float!
       producto: ShortProduct
     }
+
+
+    type InfoIngreso{
+      id_ps: Int!,
+      cantidad: Int!,
+      subtotal: Float!,
+      proveedor: Proveedor
+    }
   type Query {
     personas: [Persona]
     getPersonByEmail(email: String!): Persona
@@ -247,6 +255,7 @@ const typeDefs = `#graphql
     pagosByPersonaId(id_persona: Int!): [HistorialCompra]!
     proveedorById(id_proveedor: Int!): Proveedor
     allSalesQuantityProduct: [SalesProduct]
+    informationIngresosByProductId(id_ps:Int!): [InfoIngreso]
   }
 
   type Mutation 

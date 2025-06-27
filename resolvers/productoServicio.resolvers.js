@@ -5,6 +5,7 @@ const {
   updateProductoServicio,
   getProductoServicioById,
   getAllSalesQuantityProduct,
+  getInformationIngresosByProductId,
 } = require('../controllers/productoServicio.controller')
 
 const productoServicioResolvers = {
@@ -13,6 +14,8 @@ const productoServicioResolvers = {
     productoServicioById: async (_, id_ps) =>
       await getProductoServicioById(id_ps),
     allSalesQuantityProduct: async () => await getAllSalesQuantityProduct(),
+    informationIngresosByProductId: async (_, id_ps) =>
+      await getInformationIngresosByProductId(id_ps),
   },
   Mutation: {
     createProductoServicio: async (_, args) =>
