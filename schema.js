@@ -207,6 +207,17 @@ const typeDefs = `#graphql
       detalles_factura: [DetalleFacturaWithProduct!]!
     }
 
+    type ShortProduct {
+      nombre: String!
+      precio: Float!
+      stock: Int!
+    }
+    type SalesProduct {
+      id_ps: Int!
+      cantidad_ventas: Int!
+      total_facturado: Float!
+      producto: ShortProduct
+    }
   type Query {
     personas: [Persona]
     getPersonByEmail(email: String!): Persona
@@ -235,6 +246,7 @@ const typeDefs = `#graphql
     getFacturaWithDetailsById(id_factura:Int!): InformeVenta!
     pagosByPersonaId(id_persona: Int!): [HistorialCompra]!
     proveedorById(id_proveedor: Int!): Proveedor
+    allSalesQuantityProduct: [SalesProduct]
   }
 
   type Mutation 

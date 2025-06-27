@@ -1,7 +1,7 @@
 const { omitBy, isUndefined } = require('lodash') // Para limpiar valores undefined
+const { fn, col } = require('sequelize')
 
-const { ProductoServicio } = require('../models')
-const { formatDate } = require('../handlers/date.handler')
+const { ProductoServicio, DetalleFactura } = require('../models')
 
 async function getProductosServicios() {
   return await ProductoServicio.findAll()
@@ -102,10 +102,41 @@ async function updateProductoServicio({ id_ps, input }) {
   }
 }
 
+async function getAllSalesQuantityProduct() {
+  const ventas = await DetalleFactura.findAll({
+    attributes: [
+      'id_ps',
+      [fn('SUM', col('cantidad')), 'cantidad_ventas'],
+      [fn('SUM', col('Detallefactura.precio')), 'total_facturado'],
+    ],
+    include: [
+      {
+        model: ProductoServicio,
+        as: 'producto_servicio',
+        attributes: ['nombre', 'precio', 'stock'],
+      },
+    ],
+    group: ['Detallefactura.id_ps', 'producto_servicio.id_ps'],
+    order: [[fn('SUM', col('cantidad')), 'DESC']],
+  })
+
+  return ventas.map(v => ({
+    id_ps: v.id_ps,
+    cantidad_ventas: parseInt(v.get('cantidad_ventas')),
+    total_facturado: parseFloat(v.get('total_facturado')),
+    producto: {
+      nombre: v.producto_servicio.nombre,
+      precio: v.producto_servicio.precio,
+      stock: v.producto_servicio.stock,
+    },
+  }))
+}
+
 module.exports = {
   getProductosServicios,
   getProductoServicioById,
   createProductoServicio,
   cancelProductoServicios,
   updateProductoServicio,
+  getAllSalesQuantityProduct,
 }
