@@ -111,6 +111,7 @@ const typeDefs = `#graphql
 
   type IngresoProducto {
     id_ip: Int!
+    fecha_ingreso: String!
     id_proveedor: Int!
     subtotal: Int!
     cantidad: Int!
@@ -222,6 +223,7 @@ const typeDefs = `#graphql
 
     type InfoIngreso{
       id_ps: Int!,
+      fecha_ingreso: String!,
       cantidad: Int!,
       subtotal: Float!,
       proveedor: Proveedor
@@ -331,6 +333,7 @@ const typeDefs = `#graphql
     ): ProductoCarrito
 
     createIngresoProducto(
+      fecha_ingreso: String!,
       id_proveedor:Int!,
       subtotal:Float!,
       cantidad:Int!,

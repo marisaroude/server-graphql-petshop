@@ -1,3 +1,4 @@
+const { formatDate } = require('../handlers/date.handler')
 const { IngresoProducto, ProductoServicio } = require('../models')
 
 // Obtener todos los ingresos de productos
@@ -7,6 +8,7 @@ async function getIngresosProductos() {
 
 // Crear un nuevo ingreso de producto
 async function createIngresoProducto({
+  fecha_ingreso,
   id_proveedor,
   subtotal,
   cantidad,
@@ -14,11 +16,12 @@ async function createIngresoProducto({
 }) {
   try {
     // Validar campos requeridos
-    if (!id_proveedor || !subtotal || !cantidad || !id_ps) {
+    if (!id_proveedor || !fecha_ingreso || !subtotal || !cantidad || !id_ps) {
       throw new Error('Todos los campos son requeridos')
     }
-
+    const formattedDate = formatDate(fecha_ingreso)
     const ingresoProducto = await IngresoProducto.create({
+      fecha_ingreso: formattedDate,
       id_proveedor,
       subtotal,
       cantidad,
