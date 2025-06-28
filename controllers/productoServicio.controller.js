@@ -139,7 +139,13 @@ async function getAllSalesQuantityProduct() {
 
 async function getInformationIngresosByProductId({ id_ps }) {
   const ingresos = await IngresoProducto.findAll({
-    attributes: ['id_ps', 'id_proveedor', 'cantidad', 'subtotal'],
+    attributes: [
+      'id_ps',
+      'id_proveedor',
+      'cantidad',
+      'subtotal',
+      'fecha_ingreso',
+    ],
     where: { id_ps },
     include: [
       {
@@ -154,6 +160,7 @@ async function getInformationIngresosByProductId({ id_ps }) {
     cantidad: i.cantidad,
     subtotal: i.subtotal,
     proveedor: i.proveedor,
+    fecha_ingreso: i.fecha_ingreso,
   }))
 }
 

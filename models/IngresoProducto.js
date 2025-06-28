@@ -8,6 +8,10 @@ module.exports = (sequelize, DataTypes) => {
         autoIncrement: true,
         allowNull: false,
       },
+      fecha_ingreso: {
+        type: DataTypes.DATE,
+        allowNull: false,
+      },
       id_proveedor: {
         type: DataTypes.INTEGER,
         allowNull: false,
