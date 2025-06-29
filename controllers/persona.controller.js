@@ -142,6 +142,29 @@ async function getPersonById({ id_persona }) {
   return persona
 }
 
+async function registerPersona({ id_persona }) {
+  console.log('id persona', id_persona)
+  try {
+    if (!id_persona) {
+      throw new Error('ID person is required')
+    }
+
+    const persona = await Persona.findByPk(id_persona)
+    if (!persona) throw new Error('Person not found')
+
+    persona.fecha_baja = null
+
+    await persona.save()
+
+    return {
+      ...persona.toJSON(),
+      fecha_baja: null,
+    }
+  } catch (error) {
+    throw new Error(`Error registering the person: ${error.message}`)
+  }
+}
+
 module.exports = {
   getPersonas,
   getPersonByEmail,
@@ -150,4 +173,5 @@ module.exports = {
   updatePersona,
   getMascotasByIDPersona,
   getPersonById,
+  registerPersona,
 }
