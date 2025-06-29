@@ -96,9 +96,17 @@ async function updatePersona({ id_persona, input }) {
     if (!persona) {
       throw new Error('Person not found')
     }
-    //
-    // Filtrar valores undefined para evitar sobrescribir con null
-    const dataToUpdate = omitBy(input, isUndefined)
+
+    // Clonamos el input
+    const inputCopy = { ...input }
+
+    // Si viene fecha_baja, la formateamos
+    if (inputCopy.fecha_baja) {
+      inputCopy.fecha_baja = formatDate(inputCopy.fecha_baja)
+    }
+
+    // Filtrar valores undefined
+    const dataToUpdate = omitBy(inputCopy, isUndefined)
 
     await Persona.update(dataToUpdate, {
       where: { id_persona },
