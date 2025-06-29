@@ -136,7 +136,7 @@ async function updateProductoCarrito({ id_pc, input }) {
 
     return { ...productoCarrito.toJSON(), ...filteredDataToUpdate }
   } catch (error) {
-    throw new Error(`Error updating the product cart: ${error.message}`)
+    throw new Error(`${error.message}`)
   }
 }
 
