@@ -359,7 +359,9 @@ const typeDefs = `#graphql
 
 
     cancelPersona(id_persona: Int!): Persona
+    registerPersona(id_persona: Int!): Persona
     cancelMascota(id_mascota: Int!): Mascota
+    registerMascota(id_mascota: Int!): Mascota
     cancelPromocion(id_promocion: Int!): Promocion
     
     deleteProductosCarrito(

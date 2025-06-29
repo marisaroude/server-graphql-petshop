@@ -8,6 +8,7 @@ const {
   getMascotasByIDPersona,
   getPersonByEmail,
   getPersonById,
+  registerPersona,
 } = require('../controllers/persona.controller')
 
 ///aca llama al controller y retorna
@@ -23,6 +24,7 @@ const personaResolvers = {
     createPersona: async (_, args) => await createPersona(args),
     cancelPersona: async (_, id_persona) => await cancelPersona(id_persona),
     updatePersona: async (_, args) => await updatePersona(args),
+    registerPersona: async (_, id_persona) => await registerPersona(id_persona),
   },
 }
 

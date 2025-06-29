@@ -4,6 +4,7 @@ const {
   cancelMascota,
   updateMascota,
   getMascotaById,
+  registerMascota,
 } = require('../controllers/mascota.controller')
 
 const mascotaResolvers = {
@@ -16,6 +17,8 @@ const mascotaResolvers = {
     cancelMascota: async (_, { id_mascota }) =>
       await cancelMascota({ id_mascota }),
     updateMascota: async (_, args) => await updateMascota(args),
+    registerMascota: async (_, { id_mascota }) =>
+      await registerMascota({ id_mascota }),
   },
 }
 
