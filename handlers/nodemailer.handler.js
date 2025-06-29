@@ -20,7 +20,7 @@ async function sendEmail(customer, factura) {
   const mailOptions = {
     from: EMAIL_USER,
     to: customer.correo_electronico,
-    subject: 'Detalle de Factura',
+    subject: 'Comprobante de Pago',
     html: buildEmail(factura, customer),
     attachments: [
       {
@@ -51,7 +51,7 @@ const buildEmail = (factura, customer) => {
   <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
-      <title>Factura de compra</title>
+      <title>Comprobante de Pago</title>
       <style>
         body {
           margin: 0;
@@ -107,7 +107,7 @@ const buildEmail = (factura, customer) => {
         <tr>
           <td style="text-align: left">
             <img src="cid:logo" alt="Logo Puppis" style="height: 80px;" /><br>
-            <h1>Factura de tu compra</h1>
+            <h1>Comprobante de Pago</h1>
           </td>
           <td style="text-align: right">
             <img src="cid:illustration" alt="Ilustracion de perrito" style="height: 140px;" /><br>
