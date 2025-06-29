@@ -164,12 +164,6 @@ const buildEmail = (factura, customer) => {
       <table>
         <tr><th>Pago</th></tr>
         <tr>
-          <td>Id Pago: ${factura.pago.id_pago}</td>
-        </tr>
-        <tr>
-          <td>Id MercadoPago: ${factura.pago.id_mercadopago}</td>
-        </tr>
-        <tr>
           <td>Fecha de pago: ${new Date(
             factura.pago.fecha,
           ).toLocaleString()}</td>
