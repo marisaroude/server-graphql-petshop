@@ -96,9 +96,17 @@ async function updatePersona({ id_persona, input }) {
     if (!persona) {
       throw new Error('Person not found')
     }
-    //
-    // Filtrar valores undefined para evitar sobrescribir con null
-    const dataToUpdate = omitBy(input, isUndefined)
+
+    // Clonamos el input
+    const inputCopy = { ...input }
+
+    // Si viene fecha_baja, la formateamos
+    if (inputCopy.fecha_baja) {
+      inputCopy.fecha_baja = formatDate(inputCopy.fecha_baja)
+    }
+
+    // Filtrar valores undefined
+    const dataToUpdate = omitBy(inputCopy, isUndefined)
 
     await Persona.update(dataToUpdate, {
       where: { id_persona },
@@ -134,6 +142,29 @@ async function getPersonById({ id_persona }) {
   return persona
 }
 
+async function registerPersona({ id_persona }) {
+  console.log('id persona', id_persona)
+  try {
+    if (!id_persona) {
+      throw new Error('ID person is required')
+    }
+
+    const persona = await Persona.findByPk(id_persona)
+    if (!persona) throw new Error('Person not found')
+
+    persona.fecha_baja = null
+
+    await persona.save()
+
+    return {
+      ...persona.toJSON(),
+      fecha_baja: null,
+    }
+  } catch (error) {
+    throw new Error(`Error registering the person: ${error.message}`)
+  }
+}
+
 module.exports = {
   getPersonas,
   getPersonByEmail,
@@ -142,4 +173,5 @@ module.exports = {
   updatePersona,
   getMascotasByIDPersona,
   getPersonById,
+  registerPersona,
 }

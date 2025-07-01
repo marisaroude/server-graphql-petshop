@@ -101,10 +101,32 @@ async function updateMascota({ id_mascota, input }) {
   }
 }
 
+async function registerMascota({ id_mascota }) {
+  try {
+    if (!id_mascota) {
+      throw new Error('ID de la mascota es requerido')
+    }
+
+    const mascota = await Mascota.findByPk(id_mascota)
+    if (!mascota) throw new Error('Mascota no encontrada')
+
+    mascota.fecha_baja = null
+
+    await mascota.save()
+
+    return {
+      ...mascota.toJSON(),
+      fecha_baja: null,
+    }
+  } catch (error) {
+    throw new Error(`Error cancelando la mascota: ${error.message}`)
+  }
+}
 module.exports = {
   getMascotas,
   getMascotaById,
   createMascota,
   cancelMascota,
   updateMascota,
+  registerMascota,
 }

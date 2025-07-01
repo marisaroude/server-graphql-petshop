@@ -111,6 +111,7 @@ const typeDefs = `#graphql
 
   type IngresoProducto {
     id_ip: Int!
+    fecha_ingreso: String!
     id_proveedor: Int!
     subtotal: Int!
     cantidad: Int!
@@ -207,6 +208,26 @@ const typeDefs = `#graphql
       detalles_factura: [DetalleFacturaWithProduct!]!
     }
 
+    type ShortProduct {
+      nombre: String!
+      precio: Float!
+      stock: Int!
+    }
+    type SalesProduct {
+      id_ps: Int!
+      cantidad_ventas: Int!
+      total_facturado: Float!
+      producto: ShortProduct
+    }
+
+
+    type InfoIngreso{
+      id_ps: Int!,
+      fecha_ingreso: String!,
+      cantidad: Int!,
+      subtotal: Float!,
+      proveedor: Proveedor
+    }
   type Query {
     personas: [Persona]
     getPersonByEmail(email: String!): Persona
@@ -235,6 +256,8 @@ const typeDefs = `#graphql
     getFacturaWithDetailsById(id_factura:Int!): InformeVenta!
     pagosByPersonaId(id_persona: Int!): [HistorialCompra]!
     proveedorById(id_proveedor: Int!): Proveedor
+    allSalesQuantityProduct: [SalesProduct]
+    informationIngresosByProductId(id_ps:Int!): [InfoIngreso]
   }
 
   type Mutation 
@@ -310,6 +333,7 @@ const typeDefs = `#graphql
     ): ProductoCarrito
 
     createIngresoProducto(
+      fecha_ingreso: String!,
       id_proveedor:Int!,
       subtotal:Float!,
       cantidad:Int!,
@@ -335,7 +359,9 @@ const typeDefs = `#graphql
 
 
     cancelPersona(id_persona: Int!): Persona
+    registerPersona(id_persona: Int!): Persona
     cancelMascota(id_mascota: Int!): Mascota
+    registerMascota(id_mascota: Int!): Mascota
     cancelPromocion(id_promocion: Int!): Promocion
     
     deleteProductosCarrito(

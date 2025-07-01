@@ -61,7 +61,7 @@ async function createProductoCarrito({
 
       return existingProduct
     }
-    const formattedDate = formatDate(fecha_servicio)
+    const formattedDate = fecha_servicio ? formatDate(fecha_servicio) : null
 
     // Crear el producto si no existe
     const productoCarrito = await ProductoCarrito.create({
@@ -136,7 +136,7 @@ async function updateProductoCarrito({ id_pc, input }) {
 
     return { ...productoCarrito.toJSON(), ...filteredDataToUpdate }
   } catch (error) {
-    throw new Error(`Error updating the product cart: ${error.message}`)
+    throw new Error(`${error.message}`)
   }
 }
 
